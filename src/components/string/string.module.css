@@ -1,0 +1,22 @@
+.inputcontainer{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    max-width: 522px;
+    gap: 12px;
+}
+
+.input{
+    max-width: 377px;
+    width: 100%;
+}
+
+.circlecontainer{
+    display: flex;
+    padding: 0;
+    margin: 120px auto 0 auto;
+    width: fit-content;
+    max-width: 1040px;
+    list-style-type: none;
+    gap: 16px;
+}
