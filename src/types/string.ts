@@ -3,3 +3,4 @@ export type TArray = {
     value: string;
     color: ElementStates;
   };
+  
