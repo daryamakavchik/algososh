@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { RadioInput } from "../ui/radio-input/radio-input";
 import { Button } from "../ui/button/button";
 import { Column } from "../ui/column/column";
@@ -13,6 +13,9 @@ export const SortingPage: React.FC = () => {
   const [sortType, setSortType] = useState("выбор");
   const [direction, setDirection] = useState<Direction>();
   const [loader, setLoader] = useState(false);
+  const delay = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
 
   const sortAscendingSelect = async (arr: TArray[]) => {
     setLoader(true);
@@ -24,7 +27,7 @@ export const SortingPage: React.FC = () => {
         arr[j].color = ElementStates.Changing;
 
         setArr([...arr]);
-
+        await delay(500);
         if (arr[j].value < arr[minInd].value) {
           minInd = j;
         }
@@ -51,6 +54,7 @@ export const SortingPage: React.FC = () => {
 
         setArr([...arr]);
 
+        await delay(500);
         if (arr[j].value > arr[maxInd].value) {
           maxInd = j;
         }
@@ -76,6 +80,7 @@ export const SortingPage: React.FC = () => {
 
         setArr([...arr]);
 
+        await delay(500);
         if (arr[j].value > arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
@@ -97,6 +102,7 @@ export const SortingPage: React.FC = () => {
 
         setArr([...arr]);
 
+        await delay(500);
         if (arr[j].value < arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
@@ -146,16 +152,16 @@ export const SortingPage: React.FC = () => {
     setArr([...createArr()]);
   };
 
-  const setLoading = (direction: Direction) => {
-    if (direction === direction && loader === true) {
+  const setLoading = (sorting: Direction) => {
+    if (sorting === direction && loader === true) {
       return true;
     } else {
       return false;
     }
   };
 
-  const setDisabled = (direction: Direction) => {
-    if ((!direction && loader === true) || arr.length === 0) {
+  const setDisabled = (sorting: Direction) => {
+    if (sorting !== direction && loader === true || arr.length === 0) {
       return true;
     } else {
       return false;
@@ -204,6 +210,7 @@ export const SortingPage: React.FC = () => {
             style={{ width: "205px" }}
             text="Новый массив"
             onClick={addNewArr}
+            disabled={loader}
           />
         </div>
       </div>

@@ -3,13 +3,15 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { TArray } from "../../types/string";
 import styles from "./fibonacci-page.module.css";
 
 export const FibonacciPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [inputArr, setInputArr] = useState<Array<number>>([]);
   const [loader, setLoader] = useState(false);
+  const delay = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
@@ -19,6 +21,7 @@ export const FibonacciPage: React.FC = () => {
     const arr = countfib(Number(inputValue));
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
+      await delay(500);
       setInputArr(arr.slice(0, i + 1));
     }
     setLoader(false);
@@ -28,7 +31,6 @@ export const FibonacciPage: React.FC = () => {
     let arr: number[] = [0, 1];
     for (let i = 2; i < +n + 1; i++) {
       arr.push(arr[i - 2] + arr[i - 1]);
-      setInputArr([...arr]);
     }
     return arr;
   }
