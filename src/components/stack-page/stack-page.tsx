@@ -46,7 +46,7 @@ export const StackPage: React.FC = () => {
     setInputValue(e.target.value);
   };
 
-  const handleAddButton = async () => {
+  const handleAddNumber = async () => {
     if (inputValue) {
       stack.push({ value: inputValue, color: ElementStates.Changing });
       setInputValue("");
@@ -56,14 +56,14 @@ export const StackPage: React.FC = () => {
     }
   };
 
-  const handleDeleteButton = async () => {
+  const handleDeleteNumber = async () => {
     setArr([...stack.getElements()]);
     await delay(500);
     stack.pop();
     setArr([...stack.getElements()]);
   };
 
-  const handleClearButton = () => {
+  const handleClearStack = () => {
     stack.clear();
     setArr([...stack.getElements()]);
   };
@@ -88,17 +88,17 @@ export const StackPage: React.FC = () => {
         />
         <Button
           text="Добавить"
-          onClick={handleAddButton}
+          onClick={handleAddNumber}
           disabled={inputValue === ""}
         />
         <Button
           text="Удалить"
-          onClick={handleDeleteButton}
+          onClick={handleDeleteNumber}
           disabled={!arr.length}
         />
         <Button
           text="Очистить"
-          onClick={handleClearButton}
+          onClick={handleClearStack}
           disabled={!arr.length}
         />
       </div>
