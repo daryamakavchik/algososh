@@ -21,21 +21,15 @@ export class LinkedList<T> implements ILinkedList<T> {
   private head: Node<T> | null;
   private tail: Node<T> | null;
   private size: number;
-  private addValues(values: T[]) {
-    values.forEach((value) => this.append(value));
-  }
+  private addValues(values: T[]) { values.forEach((value) => this.append(value))}
   constructor(elements: T[]) {
     this.head = null;
     this.tail = null;
     this.size = 0;
-    if (elements?.length) {
-      this.addValues(elements);
-    }
+    if (elements?.length) { this.addValues(elements) }
   }
 
-  getSize() {
-    return this.size;
-  }
+  getSize() { return this.size }
 
   toArray() {
     let curr = this.head;
@@ -59,6 +53,22 @@ export class LinkedList<T> implements ILinkedList<T> {
       }
       if (current) current.next = new Node(element);
     }
+    this.size++;
+  }
+
+  prepend(element: T) {
+    const newNode = new Node(element);
+
+    if (!this.head || !this.tail) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.size++;
+      return this;
+    }
+
+    const currenNode = this.head;
+    this.head = newNode;
+    this.head.next = currenNode;
     this.size++;
   }
 }
@@ -86,6 +96,7 @@ export const ListPage: React.FC = () => {
   const [removedByIndex, setRemovedByIndex] = useState(false);
   const [addedToTail, setAddedToTail] = useState(false);
   const [removedFromTail, setRemovedFromTail] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const delay = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -121,7 +132,25 @@ export const ListPage: React.FC = () => {
     }
   };
 
-  const handleAddToHead = async () => {};
+  const handleAddToHead = async () => {
+    if (inputValue) {
+      setLoading(true);
+      setInputValue('');
+      setAddedToHead(true);
+      await delay(500);
+      list.prepend(inputValue);
+      setAddedToHead(false);
+      const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+      newArr[0].color = ElementStates.Modified;
+      setArr(newArr);
+      await delay(500);
+      newArr[0].color = ElementStates.Default;
+      setArr(newArr);
+    };
+    setInputValue('');
+    setLoading(false);
+  };
+
 
   const handleAddToTail = async () => {};
 
@@ -165,7 +194,7 @@ export const ListPage: React.FC = () => {
           value={inputValue}
           onChange={onInputChange}
         />
-        <Button style={{ minWidth: "175px" }} text="Добавить в head" />
+        <Button style={{ minWidth: "175px" }} text="Добавить в head" onClick={handleAddToHead} />
         <Button style={{ minWidth: "175px" }} text="Добавить в tail" />
         <Button style={{ minWidth: "175px" }} text="Удалить из head" />
         <Button style={{ minWidth: "175px" }} text="Удалить из tail" />
@@ -184,7 +213,12 @@ export const ListPage: React.FC = () => {
       <ul className={styles.circles}>
         {arr &&
           arr.map((item, index) => (
-            <li key={index} className={styles.circle}>
+            <li key={index} className={styles.circlebox}>
+            {loading === true && index === +inputValue &&
+                <div className={styles.smallcircle}>
+                  <Circle isSmall state={ElementStates.Changing} />
+                </div>}
+                <div className={styles.bigcircle}>
               <Circle
                 letter={item.value}
                 state={item.color}
@@ -192,6 +226,7 @@ export const ListPage: React.FC = () => {
                 head={displayHead(index)}
                 tail={displayTail(index)}
               />
+              </div>
               {index !== arr.length - 1 && (
                 <div className={styles.arrow}>
                   <ArrowIcon />

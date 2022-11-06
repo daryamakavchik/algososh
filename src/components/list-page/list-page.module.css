@@ -9,18 +9,42 @@
 .circles{
     display: flex;
     width: 100%;
-    margin: 90px auto 0 auto;
+    margin: 36px auto 0 auto;
     padding: 0;
     max-width: 760px;
     flex-wrap: wrap;
     list-style-type: none;
-    justify-content: center;
+    justify-content: center; 
 }
 
-.circle{
-  display: flex;
-  flex-direction: row;
-  gap: 25px;
+.circlebox{
+  display: grid;
+  grid-template-columns: 80px 24px;
+  grid-template-rows: 56px 80px 56px;
+  row-gap: 8px;
+  column-gap: 16px;
   align-items: center;
-  margin-right: 25px;
+  justify-items: center;
+  margin-right: 21px;
+}
+
+.arrow{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.bigcircle {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.smallcircle{
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
 }
