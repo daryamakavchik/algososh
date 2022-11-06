@@ -1,0 +1,26 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  max-width: 952px;
+  margin: 0 auto 38px auto;;
+}
+
+.circles{
+    display: flex;
+    width: 100%;
+    margin: 90px auto 0 auto;
+    padding: 0;
+    max-width: 760px;
+    flex-wrap: wrap;
+    list-style-type: none;
+    justify-content: center;
+}
+
+.circle{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: center;
+  margin-right: 25px;
+}
