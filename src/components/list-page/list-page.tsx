@@ -59,16 +59,16 @@ export class LinkedList<T> implements ILinkedList<T> {
   prepend(element: T) {
     const newNode = new Node(element);
 
-    if (!this.head || !this.tail) {
-      this.head = newNode;
-      this.tail = newNode;
-      this.size++;
-      return this;
-    }
+    // if (!this.head || !this.tail) {
+    //   this.head = newNode;
+    //   this.tail = newNode;
+    //   this.size++;
+    //   return this;
+    // }
 
-    const currenNode = this.head;
+    const currentNode = this.head;
     this.head = newNode;
-    this.head.next = currenNode;
+    this.head.next = currentNode;
     this.size++;
   }
 }
@@ -77,19 +77,21 @@ export const ListPage: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
 
-  const getRandomNum = (min: number, max: number): number => {
+  const getRandomNumber = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
   const list = useMemo(
     () =>
       new LinkedList<string>(
-        Array.from({ length: 4 }, () => getRandomNum(0, 99).toString())
+        Array.from({ length: 4 }, () => getRandomNumber(0, 99).toString())
       ),
     []
   );
 
-  const [arr, setArr] = useState<TListItem[]>( list.toArray().map((item) => ({ value: item, color: ElementStates.Default })));
+  const [arr, setArr] = useState<TListItem[]>( 
+    list.toArray().map((item) => ({ value: item, color: ElementStates.Default }))
+  );
   const [addedToHead, setAddedToHead] = useState(false);
   const [removedFromHead, setRemovedFromHead] = useState(false);
   const [addedByIndex, setAddedByIndex] = useState(false);
@@ -135,10 +137,11 @@ export const ListPage: React.FC = () => {
   const handleAddToHead = async () => {
     if (inputValue) {
       setLoading(true);
-      setInputValue('');
+      setInputValue(inputValue);
       setAddedToHead(true);
       await delay(500);
       list.prepend(inputValue);
+      console.log(list);
       setAddedToHead(false);
       const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
       newArr[0].color = ElementStates.Modified;
@@ -214,9 +217,9 @@ export const ListPage: React.FC = () => {
         {arr &&
           arr.map((item, index) => (
             <li key={index} className={styles.circlebox}>
-            {loading === true && index === +inputValue &&
+            {loading === true && (addedToHead === true && index === +indexValue) &&
                 <div className={styles.smallcircle}>
-                  <Circle isSmall state={ElementStates.Changing} />
+                  <Circle isSmall letter={inputValue} state={ElementStates.Changing} />
                 </div>}
                 <div className={styles.bigcircle}>
               <Circle
