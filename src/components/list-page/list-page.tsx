@@ -98,6 +98,7 @@ export const ListPage: React.FC = () => {
   const [removedByIndex, setRemovedByIndex] = useState(false);
   const [addedToTail, setAddedToTail] = useState(false);
   const [removedFromTail, setRemovedFromTail] = useState(false);
+  const [indexOfInputValue, setIndexOfInputValue] = useState<number>();
   const [loading, setLoading] = useState(false);
 
   const delay = (ms: number) => {
@@ -123,7 +124,7 @@ export const ListPage: React.FC = () => {
   };
 
   const displayTail = (index: number) => {
-    if (index === arr.length - 1 && !removedFromTail && !removedByIndex) {
+    if (index === arr.length - 1 && !removedFromTail && !removedByIndex && !addedToTail) {
       return "tail";
     } else if (arr.length === 1) {
       return "";
@@ -141,7 +142,6 @@ export const ListPage: React.FC = () => {
       setAddedToHead(true);
       await delay(500);
       list.prepend(inputValue);
-      console.log(list);
       setAddedToHead(false);
       const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
       newArr[0].color = ElementStates.Modified;
@@ -155,7 +155,25 @@ export const ListPage: React.FC = () => {
   };
 
 
-  const handleAddToTail = async () => {};
+  const handleAddToTail = async () => {
+    if (inputValue) {
+      setLoading(true);
+      setInputValue(inputValue);
+      setIndexOfInputValue((list.getSize()) - 1);
+      setAddedToTail(true);
+      await delay(500);
+      list.append(inputValue);
+      setAddedToTail(false);
+      const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+      newArr[newArr.length - 1].color = ElementStates.Modified;
+      setArr(newArr);
+      await delay(500);
+      newArr[newArr.length - 1].color = ElementStates.Default;
+      setArr(newArr);
+    };
+    setInputValue('');
+    setLoading(false);
+  };
 
   const handleRemoveFromHead = async () => {};
 
@@ -198,7 +216,7 @@ export const ListPage: React.FC = () => {
           onChange={onInputChange}
         />
         <Button style={{ minWidth: "175px" }} text="Добавить в head" onClick={handleAddToHead} />
-        <Button style={{ minWidth: "175px" }} text="Добавить в tail" />
+        <Button style={{ minWidth: "175px" }} text="Добавить в tail" onClick={handleAddToTail} />
         <Button style={{ minWidth: "175px" }} text="Удалить из head" />
         <Button style={{ minWidth: "175px" }} text="Удалить из tail" />
       </div>
@@ -217,8 +235,12 @@ export const ListPage: React.FC = () => {
         {arr &&
           arr.map((item, index) => (
             <li key={index} className={styles.circlebox}>
-            {loading === true && (addedToHead === true && index === +indexValue) &&
-                <div className={styles.smallcircle}>
+            {loading === true && (addedToHead === true && index === indexOfInputValue) &&
+                <div className={styles.smalltopcircle}>
+                  <Circle isSmall letter={inputValue} state={ElementStates.Changing} />
+                </div>}
+                {loading === true && (addedToTail === true && index === indexOfInputValue) &&
+                <div className={styles.smallbottomcircle}>
                   <Circle isSmall letter={inputValue} state={ElementStates.Changing} />
                 </div>}
                 <div className={styles.bigcircle}>
