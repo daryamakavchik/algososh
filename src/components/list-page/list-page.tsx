@@ -31,6 +31,16 @@ export class LinkedList<T> implements ILinkedList<T> {
 
   getSize() { return this.size }
 
+  getCurr(index: number) {
+    if (index < 0 || index >= this.size) return null;
+    let counter = 0;
+    let curr = this.head;
+    while (counter !== index && curr) {
+        curr = curr?.next;
+        counter++
+    }
+    return curr;
+}
   toArray() {
     let curr = this.head;
     const res = [];
@@ -71,6 +81,26 @@ export class LinkedList<T> implements ILinkedList<T> {
     this.head.next = currentNode;
     this.size++;
   }
+
+  addByIndex(element: T, index: number) {
+    const newNode = new Node(element)
+
+    if (index === 0) {
+        newNode.next = this.head;
+        this.head = newNode;
+        this.size++
+    };
+
+    let prev = this.getCurr(index - 1);
+    if (prev?.next) {
+        let temp = prev?.next;
+        prev!.next = newNode;
+        newNode!.next = temp;
+        this.size++
+    };
+    return
+};
+
 }
 
 export const ListPage: React.FC = () => {
@@ -179,7 +209,34 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromTail = async () => {};
 
-  const handleAddByIndex = async () => {};
+  const handleAddByIndex = async () => {
+      if (+indexValue < 5 && (list.getSize()) < 6) {
+        setLoading(true);
+        setAddedByIndex(true);
+        const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+        for (let i = 0; i <= +indexValue; i++) {
+          setIndexOfInputValue(i);
+          await delay(500);
+          if (i < +indexValue) {
+            newArr[i].color = ElementStates.Changing;
+            setArr(newArr);
+          };
+        };
+        setAddedByIndex(false);
+        setIndexOfInputValue(+'');
+        list.addByIndex(inputValue, +indexValue);
+        const finalArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+        finalArr[+indexValue].color = ElementStates.Modified;
+  
+        setArr(finalArr);
+        await delay(500);
+        finalArr[+indexValue].color = ElementStates.Default;
+        setArr(finalArr);
+      };
+      setLoading(false);
+      setInputValue('');
+      setIndexValue('');
+    };
 
   const handleRemoveByIndex = async () => {};
 
@@ -228,7 +285,7 @@ export const ListPage: React.FC = () => {
           value={indexValue}
           onChange={onIndexChange}
         />
-        <Button style={{ minWidth: "362px" }} text="Добавить по индексу" />
+        <Button style={{ minWidth: "362px" }} text="Добавить по индексу" onClick={handleAddByIndex} />
         <Button style={{ minWidth: "362px" }} text="Удалить по индексу" />
       </div>
       <ul className={styles.circles}>
