@@ -450,7 +450,7 @@ export const ListPage: React.FC = () => {
           arr.map((item, index) => (
             <li key={index} className={styles.circlebox}>
               {loading === true &&
-                addedToHead === true &&
+                (addedToHead === true || addedToTail === true || addedByIndex === true) &&
                 index === indexOfInputValue && (
                   <div className={styles.smalltopcircle}>
                     <Circle
@@ -461,7 +461,7 @@ export const ListPage: React.FC = () => {
                   </div>
                 )}
               {loading === true &&
-                addedToTail === true &&
+                (removedFromTail === true || removedFromHead === true || removedByIndex === true) &&
                 index === indexOfInputValue && (
                   <div className={styles.smallbottomcircle}>
                     <Circle
