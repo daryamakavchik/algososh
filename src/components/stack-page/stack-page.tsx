@@ -18,11 +18,8 @@ export class Stack<T> implements IStack<T> {
     this.container.pop();
   };
 
-  peek = (): T | null => {
-    if (this.container.length !== 0) {
+  peek = (): T => {
       return this.container[this.container.length - 1];
-    }
-    return null;
   };
 
   clear = (): void => {
@@ -52,11 +49,13 @@ export const StackPage: React.FC = () => {
       setInputValue("");
       setArr([...stack.getElements()]);
       await delay(500);
+      stack.peek().color = ElementStates.Default;
       setArr([...stack.getElements()]);
     }
   };
 
   const handleDeleteNumber = async () => {
+    stack.peek().color = ElementStates.Changing;
     setArr([...stack.getElements()]);
     await delay(500);
     stack.pop();
