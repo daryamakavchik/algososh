@@ -41,6 +41,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return curr;
 }
+
   toArray() {
     let curr = this.head;
     const res = [];
@@ -51,6 +52,45 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return [...res];
   }
+
+  removeHead() {
+    if (!this.head) return null;
+
+    if (this.size === 1) {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+        return;
+    };
+
+    const currentHead = this.head;
+    const newHead = currentHead.next;
+    this.head = newHead;
+    this.size--;
+};
+
+removeTail() {
+    if (!this.tail) return;
+
+    if (this.size === 1) {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+        return;
+    };
+
+    let current = this.head;
+    let newTail = null;
+    while (current) {
+        if (current.next) {
+            newTail = current;
+        };
+        current = current.next;
+    };
+    this.tail = newTail;
+    this.tail!.next = null;
+    this.size--;
+};
 
   append(element: T) {
     let node = new Node(element);
@@ -68,14 +108,6 @@ export class LinkedList<T> implements ILinkedList<T> {
 
   prepend(element: T) {
     const newNode = new Node(element);
-
-    // if (!this.head || !this.tail) {
-    //   this.head = newNode;
-    //   this.tail = newNode;
-    //   this.size++;
-    //   return this;
-    // }
-
     const currentNode = this.head;
     this.head = newNode;
     this.head.next = currentNode;
@@ -101,11 +133,24 @@ export class LinkedList<T> implements ILinkedList<T> {
     return
 };
 
+removeByIndex(index: number) {
+  if (index === 0) return this.removeHead();
+  if (index === this.size - 1) return this.removeTail();
+  let prev = this.getCurr(index - 1);
+  if (prev?.next) {
+      let deletedNode = prev?.next;
+      prev.next = deletedNode?.next;
+      this.size--
+      return deletedNode;
+  };
+};
+
 }
 
 export const ListPage: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
+  const [circleValue, setCircleValue] = useState("");
 
   const getRandomNumber = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -238,7 +283,29 @@ export const ListPage: React.FC = () => {
       setIndexValue('');
     };
 
-  const handleRemoveByIndex = async () => {};
+  const handleRemoveByIndex = async () => {
+      if (+indexValue < (list.getSize()) && +indexValue < 7) {
+        setLoading(true);
+        const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+        for (let i = 0; i <= +indexValue; i++) {
+          await delay(500);
+          newArr[i].color = ElementStates.Changing;
+          setArr([...newArr]);
+        };
+        await delay(500);
+        setCircleValue(newArr[+indexValue].value);
+        newArr[+indexValue].value = '';
+        setRemovedByIndex(true);
+        newArr[+indexValue].color = ElementStates.Default;
+        setIndexOfInputValue(+indexValue);
+        await delay(500);
+        list.removeByIndex(+indexValue);
+        setArr(list.toArray().map((item) => ({ value: item, color: ElementStates.Default })));
+        setRemovedByIndex(false);
+        setLoading(false);
+        setIndexValue('');
+      }
+    };
 
   const removeElements = ( head: Node<number> | null, val: number): Node<number> | null => {
     if (head === null) {
@@ -286,7 +353,7 @@ export const ListPage: React.FC = () => {
           onChange={onIndexChange}
         />
         <Button style={{ minWidth: "362px" }} text="Добавить по индексу" onClick={handleAddByIndex} />
-        <Button style={{ minWidth: "362px" }} text="Удалить по индексу" />
+        <Button style={{ minWidth: "362px" }} text="Удалить по индексу" onClick={handleRemoveByIndex} />
       </div>
       <ul className={styles.circles}>
         {arr &&
