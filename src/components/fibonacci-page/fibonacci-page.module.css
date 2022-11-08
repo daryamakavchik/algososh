@@ -14,9 +14,12 @@
 .circlecontainer{
     display: flex;
     padding: 0;
-    margin: 120px auto 0 auto;
+    margin: 48px auto 0 auto;
     width: fit-content;
     max-width: 1040px;
     list-style-type: none;
     gap: 16px;
+    max-width: 944px;
+    flex-wrap: wrap;
+    row-gap: 59px;
 }
