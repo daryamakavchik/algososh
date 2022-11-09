@@ -11,6 +11,9 @@ export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [inputArr, setInputArr] = useState<Array<TArray>>([]);
   const [loader, setLoader] = useState(false);
+  const delay = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
@@ -34,6 +37,7 @@ export const StringComponent: React.FC = () => {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
         setInputArr([...arr]);
+        await delay(1000);
       }
 
       swap(arr, i, j);
