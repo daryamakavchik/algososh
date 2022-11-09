@@ -178,6 +178,8 @@ export const ListPage: React.FC = () => {
   const [removedFromTail, setRemovedFromTail] = useState(false);
   const [indexOfInputValue, setIndexOfInputValue] = useState<number>();
   const [loading, setLoading] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [disabledIndexButton, setDisabledIndexButton] = useState(false);
 
   const delay = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -192,11 +194,10 @@ export const ListPage: React.FC = () => {
   };
 
   const displayHead = (index: number) => {
-    if (index === 0 && !addedToHead && !addedByIndex && !removedFromHead) {
+    if (index === 0 && !addedToHead && !addedByIndex) {
       return "head";
-    } else if (index === 0 && addedByIndex && +indexValue !== 0) {
-      return "head";
-    } else {
+    }
+    if (circleValue || addedByIndex) {
       return "";
     }
   };
@@ -219,9 +220,12 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddToHead = async () => {
-    if (inputValue) {
+    if (list.getSize() > 5) {
+      setDisabledButton(true);
+    }
+    if (inputValue && list.getSize() <= 5) {
       setLoading(true);
-      setInputValue(inputValue);
+      setIndexOfInputValue(0);
       setAddedToHead(true);
       await delay(500);
       list.prepend(inputValue);
@@ -240,7 +244,10 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddToTail = async () => {
-    if (inputValue) {
+    if (list.getSize() > 5) {
+      setDisabledButton(true);
+    }
+    if (inputValue && list.getSize() <= 5) {
       setLoading(true);
       setInputValue(inputValue);
       setIndexOfInputValue(list.getSize() - 1);
@@ -308,6 +315,9 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddByIndex = async () => {
+    if (list.getSize() >= 6) {
+      setDisabledIndexButton(true);
+    }
     if (+indexValue < 5 && list.getSize() < 6) {
       setLoading(true);
       setAddedByIndex(true);
@@ -370,29 +380,6 @@ export const ListPage: React.FC = () => {
     }
   };
 
-  const removeElements = (
-    head: Node<number> | null,
-    val: number
-  ): Node<number> | null => {
-    if (head === null) {
-      return null;
-    }
-
-    let dummyHead = new Node(0);
-    dummyHead.next = head;
-    head = dummyHead;
-
-    while (dummyHead.next !== null) {
-      if (dummyHead.next.value === val) {
-        dummyHead.next = dummyHead.next.next;
-      } else {
-        dummyHead = dummyHead.next;
-      }
-    }
-
-    return head.next;
-  };
-
   return (
     <SolutionLayout title="Связный список">
       <div className={styles.container}>
@@ -409,11 +396,13 @@ export const ListPage: React.FC = () => {
           style={{ minWidth: "175px" }}
           text="Добавить в head"
           onClick={handleAddToHead}
+          disabled={disabledButton}
         />
         <Button
           style={{ minWidth: "175px" }}
           text="Добавить в tail"
           onClick={handleAddToTail}
+          disabled={disabledButton}
         />
         <Button
           style={{ minWidth: "175px" }}
@@ -438,6 +427,7 @@ export const ListPage: React.FC = () => {
           style={{ minWidth: "362px" }}
           text="Добавить по индексу"
           onClick={handleAddByIndex}
+          disabled={disabledIndexButton}
         />
         <Button
           style={{ minWidth: "362px" }}
