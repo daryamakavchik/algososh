@@ -3,27 +3,18 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import styles from "./string.module.css";
 import { TArray } from "../../types/string";
 import { ElementStates } from "../../types/element-states";
+import { delay, swap } from "../../utils/functions";
+import styles from "./string.module.css";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [inputArr, setInputArr] = useState<Array<TArray>>([]);
   const [loader, setLoader] = useState(false);
-  const delay = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
-  };
-
-  const swap = (arr: TArray[], firstIndex: number, secondIndex: number) => {
-    const temp = arr[firstIndex];
-    arr[firstIndex] = arr[secondIndex];
-    arr[secondIndex] = temp;
-    return arr;
   };
 
   const reverse = async (arr: TArray[]) => {
@@ -51,9 +42,7 @@ export const StringComponent: React.FC = () => {
   };
 
   const handleReverse = () => {
-    const newArr = inputValue
-      .split("")
-      .map((value) => ({ value, color: ElementStates.Default }));
+    const newArr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
     reverse(newArr);
   };
 

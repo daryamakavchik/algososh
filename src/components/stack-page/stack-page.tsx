@@ -3,9 +3,10 @@ import { TStackItem, IStack } from "../../types/stack";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import styles from "./stack-page.module.css";
-import { ElementStates } from "../../types/element-states";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
+import { ElementStates } from "../../types/element-states";
+import { delay } from "../../utils/functions";
+import styles from "./stack-page.module.css";
 
 export class Stack<T> implements IStack<T> {
   private container: T[] = [];
@@ -27,17 +28,15 @@ export class Stack<T> implements IStack<T> {
   };
 
   getSize = () => this.container.length;
+
   getElements = () => this.container;
+  
 }
 
 export const StackPage: React.FC = () => {
   const [arr, setArr] = useState<TStackItem[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [stack] = useState(new Stack<TStackItem>());
-
-  const delay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);

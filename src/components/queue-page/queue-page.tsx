@@ -3,9 +3,10 @@ import { IQueue, TQueueItem } from "../../types/queue";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import styles from "./queue-page.module.css";
-import { ElementStates } from "../../types/element-states";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
+import { ElementStates } from "../../types/element-states";
+import { delay } from "../../utils/functions";
+import styles from "./queue-page.module.css";
 
 export class Queue<T> implements IQueue<T> {
   private container: (T | null)[] = [];
@@ -38,6 +39,7 @@ export class Queue<T> implements IQueue<T> {
   };
 
   isEmpty = () => this.length === 0;
+
   peek = (): T | null => {
     if (this.isEmpty()) {
       throw new Error("No elements in the queue");
@@ -69,11 +71,7 @@ export const QueuePage: React.FC = () => {
   const [arr, setArr] = useState<TQueueItem[]>(defaultQueue);
   const [queue, setQueue] = useState(new Queue<TQueueItem>(7));
   const [inputValue, setInputValue] = useState("");
-  const [buttons, disableButtons] = useState(false);
-
-  const delay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+  const [buttons, setDisabledButtons] = useState(false);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -98,7 +96,7 @@ export const QueuePage: React.FC = () => {
   };
 
   const handleDeleteNumber = async () => {
-    disableButtons(true);
+    setDisabledButtons(true);
     queue.dequeue();
     setQueue(queue);
 
@@ -114,7 +112,7 @@ export const QueuePage: React.FC = () => {
       setArr([...arr]);
     }
 
-    disableButtons(false);
+    setDisabledButtons(false);
   };
 
   const handleClearQueue = () => {

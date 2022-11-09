@@ -3,6 +3,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
+import { delay, countFibonacci } from "../../utils/functions";
 import styles from "./fibonacci-page.module.css";
 
 export const FibonacciPage: React.FC = () => {
@@ -10,16 +11,12 @@ export const FibonacciPage: React.FC = () => {
   const [inputArr, setInputArr] = useState<Array<number>>([]);
   const [loader, setLoader] = useState(false);
 
-  const delay = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
-
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
   };
 
-  const displayfib = async (n: string) => {
-    const arr = countfib(+inputValue);
+  const getFibonacciNumbers = async (n: string) => {
+    const arr = countFibonacci(+inputValue);
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
       await delay(500);
@@ -28,16 +25,8 @@ export const FibonacciPage: React.FC = () => {
     setLoader(false);
   }
 
-  const countfib = (n:number):number[] => {
-    let arr: number[] = [0, 1];
-    for (let i = 2; i < n + 1; i++) {
-      arr.push(arr[i - 2] + arr[i - 1]);
-    }
-    return arr;
-  }
-
   const handleDisplay = () => {
-    displayfib(inputValue);
+    getFibonacciNumbers(inputValue);
   };
 
   return (

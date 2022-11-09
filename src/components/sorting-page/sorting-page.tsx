@@ -2,19 +2,41 @@ import React, { useState } from "react";
 import { RadioInput } from "../ui/radio-input/radio-input";
 import { Button } from "../ui/button/button";
 import { Column } from "../ui/column/column";
-import styles from "./sorting-page.module.css";
+import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { TArray } from "../../types/sort";
-import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Direction } from "../../types/direction";
+import { delay, createArr } from "../../utils/functions";
+import styles from "./sorting-page.module.css";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<TArray[]>([]);
   const [sortType, setSortType] = useState("выбор");
   const [direction, setDirection] = useState<Direction>();
   const [loader, setLoader] = useState(false);
-  const delay = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+
+  const addNewArr = () => {
+    setArr([...createArr()]);
+  };
+
+  const changeSortType = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSortType(event.target.value);
+  };
+
+  const setLoading = (sorting: Direction) => {
+    if (sorting === direction && loader === true) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const setDisabled = (sorting: Direction) => {
+    if (sorting !== direction && loader === true || arr.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const sortAscendingSelect = async (arr: TArray[]) => {
@@ -25,15 +47,13 @@ export const SortingPage: React.FC = () => {
       for (let j = i + 1; j < arr.length; j++) {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
-
         setArr([...arr]);
+
         await delay(500);
         if (arr[j].value < arr[minInd].value) {
           minInd = j;
         }
-
         arr[j].color = ElementStates.Default;
-
         setArr([...arr]);
       }
 
@@ -51,16 +71,13 @@ export const SortingPage: React.FC = () => {
       for (let j = i + 1; j < arr.length; j++) {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
-
         setArr([...arr]);
 
         await delay(500);
         if (arr[j].value > arr[maxInd].value) {
           maxInd = j;
         }
-
         arr[j].color = ElementStates.Default;
-
         setArr([...arr]);
       }
 
@@ -77,17 +94,14 @@ export const SortingPage: React.FC = () => {
       for (let j = 0; j < arr.length - i - 1; j++) {
         arr[j].color = ElementStates.Changing;
         arr[j + 1].color = ElementStates.Changing;
-
         setArr([...arr]);
 
         await delay(500);
         if (arr[j].value > arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
-
         arr[j].color = ElementStates.Default;
       }
-
       arr[arr.length - i - 1].color = ElementStates.Modified;
     }
     setLoader(false);
@@ -99,17 +113,14 @@ export const SortingPage: React.FC = () => {
       for (let j = 0; j < arr.length - i - 1; j++) {
         arr[j].color = ElementStates.Changing;
         arr[j + 1].color = ElementStates.Changing;
-
         setArr([...arr]);
 
         await delay(500);
         if (arr[j].value < arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
-
         arr[j].color = ElementStates.Default;
       }
-
       arr[arr.length - i - 1].color = ElementStates.Modified;
     }
     setLoader(false);
@@ -129,42 +140,6 @@ export const SortingPage: React.FC = () => {
     }
     if (sortType === "пузырёк" && direction === Direction.Descending) {
       sortDescendingBubble(arr);
-    }
-  };
-
-  const changeSortType = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSortType(event.target.value);
-  };
-
-  const createArr = () => {
-    const arr = [];
-    const length = Math.floor(Math.random() * (17 - 3 + 1)) + 3;
-    for (let i = 0; i < length; i++) {
-      arr.push({
-        value: Math.round(Math.random() * 100),
-        color: ElementStates.Default,
-      });
-    }
-    return arr;
-  };
-
-  const addNewArr = () => {
-    setArr([...createArr()]);
-  };
-
-  const setLoading = (sorting: Direction) => {
-    if (sorting === direction && loader === true) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const setDisabled = (sorting: Direction) => {
-    if (sorting !== direction && loader === true || arr.length === 0) {
-      return true;
-    } else {
-      return false;
     }
   };
 
