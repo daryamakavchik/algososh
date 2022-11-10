@@ -1,67 +1,14 @@
 import React, { useState, ChangeEvent } from "react";
-import { IQueue, TQueueItem } from "../../types/queue";
+import { TQueueItem } from "../../types/queue";
+import { Queue } from "./queue-page-class";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/functions";
+import { DELAY_SHORT } from "../../utils/constants";
 import styles from "./queue-page.module.css";
-
-export class Queue<T> implements IQueue<T> {
-  private container: (T | null)[] = [];
-  private head = 0;
-  private tail = 0;
-  private readonly size: number = 0;
-  private length: number = 0;
-
-  constructor(size: number) {
-    this.size = size;
-    this.container = Array(size);
-  }
-
-  enqueue = (item: T) => {
-    if (this.length >= this.size) {
-      throw new Error("Maximum length exceeded");
-    }
-    this.container[this.tail % this.size] = item;
-    this.tail++;
-    this.length++;
-  };
-
-  dequeue = () => {
-    if (this.isEmpty()) {
-      throw new Error("No elements in the queue");
-    }
-    this.container[this.head % this.size] = null;
-    this.head++;
-    this.length--;
-  };
-
-  isEmpty = () => this.length === 0;
-
-  peek = (): T | null => {
-    if (this.isEmpty()) {
-      throw new Error("No elements in the queue");
-    }
-    return this.container[this.head % this.size];
-  };
-
-  clear = () => {
-    this.head = 0;
-    this.tail = 0;
-    this.container = [];
-    this.length = 0;
-  };
-
-  getHead = () => {
-    return this.head;
-  };
-
-  getTail = () => {
-    return this.tail;
-  };
-}
 
 export const QueuePage: React.FC = () => {
   const defaultQueue = Array.from({ length: 7 }, () => ({
@@ -86,7 +33,7 @@ export const QueuePage: React.FC = () => {
       arr[queue.getTail() - 1] = { value: "", color: ElementStates.Changing };
       setArr([...arr]);
 
-      await delay(500);
+      await delay(DELAY_SHORT);
       arr[queue.getTail() - 1] = { value: inputValue, color: ElementStates.Changing };
       setArr([...arr]);
 
@@ -103,7 +50,7 @@ export const QueuePage: React.FC = () => {
     arr[queue.getHead() - 1] = { value: arr[queue.getHead() - 1].value, color: ElementStates.Changing };
     setArr([...arr]);
 
-    await delay(500);
+    await delay(DELAY_SHORT);
     arr[queue.getHead() - 1] = { value: "", color: ElementStates.Default };
     setArr([...arr]);
 
@@ -134,17 +81,17 @@ export const QueuePage: React.FC = () => {
         <Button
           text="Добавить"
           onClick={handleAddNumber}
-          disabled={inputValue === ""}
+          disabled={inputValue === "" || queue.isFull()}
         />
         <Button
           text="Удалить"
           onClick={handleDeleteNumber}
-          disabled={!arr.length}
+          disabled={!arr.length || queue.isEmpty()}
         />
         <Button
           text="Очистить"
           onClick={handleClearQueue}
-          disabled={!arr.length}
+          disabled={!arr.length || queue.isEmpty()}
         />
       </div>
       <ul className={styles.circles} >

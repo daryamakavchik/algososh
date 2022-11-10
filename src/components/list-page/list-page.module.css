@@ -6,13 +6,23 @@
   margin: 0 auto 38px auto;;
 }
 
+.inputcontainer{
+  max-width: 204px;
+}
+
+.button{
+ min-width: 175px;
+}
+
+.indexbutton{
+  min-width: 362px;
+}
+
 .circles{
     display: flex;
     width: 100%;
     margin: 36px auto 0 auto;
-    padding: 0;
-    max-width: 846px;
-    flex-wrap: wrap;
+    padding: 0 0 0 21px;
     list-style-type: none;
     justify-content: center; 
 }
@@ -25,7 +35,7 @@
   column-gap: 16px;
   align-items: center;
   justify-items: center;
-  margin-right: 21px;
+  justify-content: center;
 }
 
 .arrow{
@@ -33,6 +43,7 @@
   grid-row-end: 3;
   grid-column-start: 2;
   grid-column-end: 3;
+  margin-right: 21px;
 }
 
 .bigcircle {

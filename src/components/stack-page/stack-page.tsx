@@ -1,37 +1,14 @@
 import React, { useState, ChangeEvent } from "react";
-import { TStackItem, IStack } from "../../types/stack";
+import { TStackItem } from "../../types/stack";
+import { Stack } from "./stack-page-class";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/functions";
+import { DELAY_SHORT } from "../../utils/constants";
 import styles from "./stack-page.module.css";
-
-export class Stack<T> implements IStack<T> {
-  private container: T[] = [];
-
-  push = (item: T): void => {
-    this.container.push(item);
-  };
-
-  pop = (): void => {
-    this.container.pop();
-  };
-
-  peek = (): T => {
-      return this.container[this.container.length - 1];
-  };
-
-  clear = (): void => {
-    this.container = [];
-  };
-
-  getSize = () => this.container.length;
-
-  getElements = () => this.container;
-  
-}
 
 export const StackPage: React.FC = () => {
   const [arr, setArr] = useState<TStackItem[]>([]);
@@ -47,7 +24,7 @@ export const StackPage: React.FC = () => {
       stack.push({ value: inputValue, color: ElementStates.Changing });
       setInputValue("");
       setArr([...stack.getElements()]);
-      await delay(500);
+      await delay(DELAY_SHORT);
       stack.peek().color = ElementStates.Default;
       setArr([...stack.getElements()]);
     }
@@ -56,7 +33,7 @@ export const StackPage: React.FC = () => {
   const handleDeleteNumber = async () => {
     stack.peek().color = ElementStates.Changing;
     setArr([...stack.getElements()]);
-    await delay(500);
+    await delay(DELAY_SHORT);
     stack.pop();
     setArr([...stack.getElements()]);
   };

@@ -3,11 +3,12 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { delay, countFibonacci } from "../../utils/functions";
+import { delay, getFibonacciNumbers } from "../../utils/functions";
+import { DELAY_SHORT, MAX_NUM_FIB, MIN_NUM_FIB } from "../../utils/constants";
 import styles from "./fibonacci-page.module.css";
 
 export const FibonacciPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [inputArr, setInputArr] = useState<Array<number>>([]);
   const [loader, setLoader] = useState(false);
 
@@ -15,38 +16,42 @@ export const FibonacciPage: React.FC = () => {
     setInputValue(e.currentTarget.value);
   };
 
-  const getFibonacciNumbers = async (n: string) => {
-    const arr = countFibonacci(+inputValue);
+  const countFibonacci = async (n: string) => {
+    const arr = getFibonacciNumbers(+inputValue);
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
-      await delay(500);
+      await delay(DELAY_SHORT);
       setInputArr(arr.slice(0, i + 1));
     }
     setLoader(false);
-  }
+  };
 
-  const handleDisplay = () => {
-    getFibonacciNumbers(inputValue);
+  const handleCountButton = () => {
+    countFibonacci(inputValue);
   };
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
-        <div className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
             type="number"
             value={inputValue}
             isLimitText={true}
-            max={19}
-            min={1}
+            max={MAX_NUM_FIB}
+            min={MIN_NUM_FIB}
             onChange={onInputChange}
           />
           <div className={styles.button}>
             <Button
               text="Рассчитать"
               isLoader={loader}
-              disabled={inputValue === "" ? true : false}
-              onClick={handleDisplay}
+              disabled={
+                inputValue === "" || +inputValue > 19 || +inputValue < 0
+                  ? true
+                  : false
+              }
+              onClick={handleCountButton}
             />
           </div>
         </div>
@@ -61,4 +66,4 @@ export const FibonacciPage: React.FC = () => {
       </div>
     </SolutionLayout>
   );
-}
+};

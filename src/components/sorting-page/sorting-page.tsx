@@ -7,6 +7,7 @@ import { ElementStates } from "../../types/element-states";
 import { TArray } from "../../types/sort";
 import { Direction } from "../../types/direction";
 import { delay, createArr } from "../../utils/functions";
+import { DELAY_SHORT } from "../../utils/constants";
 import styles from "./sorting-page.module.css";
 
 export const SortingPage: React.FC = () => {
@@ -26,22 +27,20 @@ export const SortingPage: React.FC = () => {
   const setLoading = (sorting: Direction) => {
     if (sorting === direction && loader === true) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   const setDisabled = (sorting: Direction) => {
-    if (sorting !== direction && loader === true || arr.length === 0) {
+    if ((sorting !== direction && loader === true) || arr.length === 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   const sortAscendingSelect = async (arr: TArray[]) => {
     setLoader(true);
-    
+
     for (let i = 0; i < arr.length - 1; i++) {
       let minInd = i;
       for (let j = i + 1; j < arr.length; j++) {
@@ -49,7 +48,7 @@ export const SortingPage: React.FC = () => {
         arr[j].color = ElementStates.Changing;
         setArr([...arr]);
 
-        await delay(500);
+        await delay(DELAY_SHORT);
         if (arr[j].value < arr[minInd].value) {
           minInd = j;
         }
@@ -73,7 +72,7 @@ export const SortingPage: React.FC = () => {
         arr[j].color = ElementStates.Changing;
         setArr([...arr]);
 
-        await delay(500);
+        await delay(DELAY_SHORT);
         if (arr[j].value > arr[maxInd].value) {
           maxInd = j;
         }
@@ -96,7 +95,7 @@ export const SortingPage: React.FC = () => {
         arr[j + 1].color = ElementStates.Changing;
         setArr([...arr]);
 
-        await delay(500);
+        await delay(DELAY_SHORT);
         if (arr[j].value > arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
@@ -115,7 +114,7 @@ export const SortingPage: React.FC = () => {
         arr[j + 1].color = ElementStates.Changing;
         setArr([...arr]);
 
-        await delay(500);
+        await delay(DELAY_SHORT);
         if (arr[j].value < arr[j + 1].value) {
           [arr[j].value, arr[j + 1].value] = [arr[j + 1].value, arr[j].value];
         }
@@ -163,30 +162,27 @@ export const SortingPage: React.FC = () => {
           />
         </div>
         <div className={styles.buttons}>
-          <Button
-            style={{ width: "205px" }}
-            text="По возрастанию"
-            sorting={Direction.Ascending}
-            onClick={() => handleClick(Direction.Ascending)}
-            disabled={setDisabled(Direction.Ascending)}
-            isLoader={setLoading(Direction.Ascending)}
-          />
-          <Button
-            style={{ width: "205px" }}
-            text="По убыванию"
-            sorting={Direction.Descending}
-            onClick={() => handleClick(Direction.Descending)}
-            disabled={setDisabled(Direction.Descending)}
-            isLoader={setLoading(Direction.Descending)}
-          />
+          <div className={styles.button}>
+            <Button
+              text="По возрастанию"
+              sorting={Direction.Ascending}
+              onClick={() => handleClick(Direction.Ascending)}
+              disabled={setDisabled(Direction.Ascending)}
+              isLoader={setLoading(Direction.Ascending)}
+            />
+          </div>
+          <div className={styles.button}>
+            <Button
+              text="По убыванию"
+              sorting={Direction.Descending}
+              onClick={() => handleClick(Direction.Descending)}
+              disabled={setDisabled(Direction.Descending)}
+              isLoader={setLoading(Direction.Descending)}
+            />
+          </div>
         </div>
         <div className={styles.arrbutton}>
-          <Button
-            style={{ width: "205px" }}
-            text="Новый массив"
-            onClick={addNewArr}
-            disabled={loader}
-          />
+          <Button text="Новый массив" onClick={addNewArr} disabled={loader} />
         </div>
       </div>
       <ul className={styles.columns}>

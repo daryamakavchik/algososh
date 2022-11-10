@@ -6,6 +6,7 @@ import { Circle } from "../ui/circle/circle";
 import { TArray } from "../../types/string";
 import { ElementStates } from "../../types/element-states";
 import { delay, swap } from "../../utils/functions";
+import { DELAY_LONG } from "../../utils/constants";
 import styles from "./string.module.css";
 
 export const StringComponent: React.FC = () => {
@@ -28,7 +29,7 @@ export const StringComponent: React.FC = () => {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
         setInputArr([...arr]);
-        await delay(1000);
+        await delay(DELAY_LONG);
       }
 
       swap(arr, i, j);
