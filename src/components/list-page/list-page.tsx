@@ -42,6 +42,16 @@ export const ListPage: React.FC = () => {
   const [indexAddButton, setDisabledIndexAddButton] = useState(false);
   const [indexDeleteButton, setDisabledIndexDeleteButton] = useState(false);
 
+  const displayTailConditions = !removedFromTail && !removedByIndex && !addedToTail;
+  const displayHeadConditions = !addedToHead && !addedByIndex;
+
+  const disableAddHeadButtonCondition = addedToTail || addedByIndex || removedFromTail || removedFromHead || removedByIndex;
+  const disableAddTailButtonCondition = addedToHead || addedByIndex || removedFromTail || removedFromHead || removedByIndex;
+  const disableRemoveHeadButtonCondition = addedToHead || addedToTail || addedByIndex || removedFromTail || removedByIndex;
+  const disableRemoveTailButtonCondition = addedToTail || addedToHead || addedByIndex || removedFromHead || removedByIndex;
+  const disableAddIndexButtonCondition = addedToTail || addedToHead || removedFromTail || removedByIndex;
+  const disableRemoveIndexButtonCondition = addedToTail || addedToHead || addedByIndex || removedFromTail;
+
   useEffect(() => {
     indexValue && inputValue && +indexValue <= list.getSize() - 1
       ? setDisabledIndexAddButton(false)
@@ -63,9 +73,6 @@ export const ListPage: React.FC = () => {
   const onIndexChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIndexValue(e.target.value);
   };
-
-  const displayTailConditions = !removedFromTail && !removedByIndex && !addedToTail;
-  const displayHeadConditions = !addedToHead && !addedByIndex;
 
   const displayHead = (index: number) => {
     if (index === 0 && displayHeadConditions) {
@@ -229,6 +236,7 @@ export const ListPage: React.FC = () => {
   const handleRemoveByIndex = async () => {
     if (+indexValue < list.getSize()) {
       setLoading(true);
+      setRemovedByIndex(true);
       const newArr = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
@@ -275,25 +283,29 @@ export const ListPage: React.FC = () => {
           extraClass={styles.button}
           text="Добавить в head"
           onClick={handleAddToHead}
-          disabled={buttons}
+          disabled={buttons || disableAddHeadButtonCondition}
+          isLoader={addedToHead}
         />
         <Button
           extraClass={styles.button}
           text="Добавить в tail"
           onClick={handleAddToTail}
-          disabled={buttons}
+          disabled={buttons || disableAddTailButtonCondition}
+          isLoader={addedToTail}
         />
         <Button
           extraClass={styles.button}
           text="Удалить из head"
           onClick={handleRemoveFromHead}
-          disabled={arr.length <= 1}
+          disabled={arr.length <= 1 || disableRemoveHeadButtonCondition}
+          isLoader={removedFromHead}
         />
         <Button
           extraClass={styles.button}
           text="Удалить из tail"
           onClick={handleRemoveFromTail}
-          disabled={arr.length <= 1}
+          disabled={arr.length <= 1 || disableRemoveTailButtonCondition}
+          isLoader={removedFromTail}
         />
       </div>
       <div className={styles.container}>
@@ -309,13 +321,15 @@ export const ListPage: React.FC = () => {
           extraClass={styles.indexbutton}
           text="Добавить по индексу"
           onClick={handleAddByIndex}
-          disabled={indexAddButton}
+          disabled={indexAddButton || disableAddIndexButtonCondition}
+          isLoader={addedByIndex}
         />
         <Button
           extraClass={styles.indexbutton}
           text="Удалить по индексу"
           onClick={handleRemoveByIndex}
-          disabled={indexDeleteButton}
+          disabled={indexDeleteButton || disableRemoveIndexButtonCondition}
+          isLoader={removedByIndex}
         />
       </div>
       <ul className={styles.circles}>
