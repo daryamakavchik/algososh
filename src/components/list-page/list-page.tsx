@@ -8,7 +8,12 @@ import { ArrowIcon } from "../ui/icons/arrow-icon";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay, getRandomNumber } from "../../utils/functions";
-import { DELAY_SHORT } from "../../utils/constants";
+import {
+  DELAY_SHORT,
+  INITIAL_LIST_LENGTH,
+  MAX_LIST_INPUT_LENGTH,
+  MAX_LIST_SIZE,
+} from "../../utils/constants";
 import styles from "./list-page.module.css";
 
 export const ListPage: React.FC = () => {
@@ -19,7 +24,9 @@ export const ListPage: React.FC = () => {
   const list = useMemo(
     () =>
       new LinkedList<string>(
-        Array.from({ length: 4 }, () => getRandomNumber(0, 99).toString())
+        Array.from({ length: INITIAL_LIST_LENGTH }, () =>
+          getRandomNumber(0, 99).toString()
+        )
       ),
     []
   );
@@ -42,26 +49,49 @@ export const ListPage: React.FC = () => {
   const [indexAddButton, setDisabledIndexAddButton] = useState(false);
   const [indexDeleteButton, setDisabledIndexDeleteButton] = useState(false);
 
-  const displayTailConditions = !removedFromTail && !removedByIndex && !addedToTail;
+  const displayTailConditions = !removedFromTail && !removedByIndex;
   const displayHeadConditions = !addedToHead && !addedByIndex;
 
-  const disableAddHeadButtonCondition = addedToTail || addedByIndex || removedFromTail || removedFromHead || removedByIndex;
-  const disableAddTailButtonCondition = addedToHead || addedByIndex || removedFromTail || removedFromHead || removedByIndex;
-  const disableRemoveHeadButtonCondition = addedToHead || addedToTail || addedByIndex || removedFromTail || removedByIndex;
-  const disableRemoveTailButtonCondition = addedToTail || addedToHead || addedByIndex || removedFromHead || removedByIndex;
-  const disableAddIndexButtonCondition = addedToTail || addedToHead || removedFromTail || removedByIndex;
-  const disableRemoveIndexButtonCondition = addedToTail || addedToHead || addedByIndex || removedFromTail;
+  const disableAddHeadButtonCondition =
+    addedToTail ||
+    addedByIndex ||
+    removedFromTail ||
+    removedFromHead ||
+    removedByIndex;
+  const disableAddTailButtonCondition =
+    addedToHead ||
+    addedByIndex ||
+    removedFromTail ||
+    removedFromHead ||
+    removedByIndex;
+  const disableRemoveHeadButtonCondition =
+    addedToHead ||
+    addedToTail ||
+    addedByIndex ||
+    removedFromTail ||
+    removedByIndex;
+  const disableRemoveTailButtonCondition =
+    addedToTail ||
+    addedToHead ||
+    addedByIndex ||
+    removedFromHead ||
+    removedByIndex;
+  const disableAddIndexButtonCondition =
+    addedToTail || addedToHead || removedFromTail || removedByIndex;
+  const disableRemoveIndexButtonCondition =
+    addedToTail || addedToHead || addedByIndex || removedFromTail;
 
   useEffect(() => {
     indexValue && inputValue && +indexValue <= list.getSize() - 1
       ? setDisabledIndexAddButton(false)
       : setDisabledIndexAddButton(true);
 
-    indexValue && +indexValue <= list.getSize() - 1 || indexValue &&  +indexValue < arr.length - 1
+    (indexValue && +indexValue <= list.getSize() - 1) ||
+    (indexValue && +indexValue < arr.length - 1)
       ? setDisabledIndexDeleteButton(false)
       : setDisabledIndexDeleteButton(true);
 
-    list.getSize() >= 10 || !inputValue
+    list.getSize() >= MAX_LIST_SIZE || !inputValue
       ? setDisabledButtons(true)
       : setDisabledButtons(false);
   });
@@ -97,7 +127,7 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddToHead = async () => {
-    if (list.getSize() >= 9) {
+    if (list.getSize() >= MAX_LIST_SIZE - 1) {
       setDisabledButtons(true);
     }
     if (inputValue) {
@@ -123,12 +153,11 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddToTail = async () => {
-    if (list.getSize() >= 9) {
+    if (list.getSize() >= MAX_LIST_SIZE - 1) {
       setDisabledButtons(true);
     }
     if (inputValue) {
       setLoading(true);
-      setInputValue(inputValue);
       setIndexOfInputValue(list.getSize() - 1);
       setAddedToTail(true);
 
@@ -175,7 +204,9 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromTail = async () => {
     if (list.getSize() > 0) {
-      const newArr = list.toArray().map((item) => ({ value: item, color: ElementStates.Default }));
+      const newArr = list
+        .toArray()
+        .map((item) => ({ value: item, color: ElementStates.Default }));
       setCircleValue(newArr[newArr.length - 1].value);
       setLoading(true);
       setRemovedFromTail(true);
@@ -196,7 +227,7 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddByIndex = async () => {
-    if (list.getSize() >= 9) {
+    if (list.getSize() >= MAX_LIST_SIZE - 1) {
       setDisabledIndexAddButton(true);
     }
     if (+indexValue) {
@@ -272,7 +303,7 @@ export const ListPage: React.FC = () => {
         <div className={styles.inputcontainer}>
           <Input
             placeholder="Введите значение"
-            maxLength={4}
+            maxLength={MAX_LIST_INPUT_LENGTH}
             isLimitText={true}
             type="text"
             value={inputValue}
