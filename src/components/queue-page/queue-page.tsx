@@ -19,6 +19,9 @@ export const QueuePage: React.FC = () => {
   const [queue, setQueue] = useState(new Queue<TQueueItem>(7));
   const [inputValue, setInputValue] = useState("");
   const [buttons, setDisabledButtons] = useState(false);
+  const [addedToQueue, setAddedToQueue] = useState(false);
+  const [removedFromQueue, setRemovedFromQueue] = useState(false);
+  const [clearedQueue, setClearedQueue] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +30,8 @@ export const QueuePage: React.FC = () => {
 
   const handleAddNumber = async () => {
     if (inputValue && !queue.isFull()) {
+      setLoader(true);
+      setAddedToQueue(true);
       setInputValue("");
       queue.enqueue({ value: inputValue, color: ElementStates.Default });
       setQueue(queue);
@@ -41,10 +46,14 @@ export const QueuePage: React.FC = () => {
       arr[queue.getTail() - 1] = { value: inputValue, color: ElementStates.Default };
       setArr([...arr]);
     }
+    setLoader(false);
+    setAddedToQueue(false);
   };
 
   const handleDeleteNumber = async () => {
     setDisabledButtons(true);
+    setLoader(true);
+    setRemovedFromQueue(true);
     queue.dequeue();
     setQueue(queue);
 
@@ -61,12 +70,16 @@ export const QueuePage: React.FC = () => {
     }
 
     setDisabledButtons(false);
+    setLoader(false);
+    setRemovedFromQueue(false);
   };
 
   const handleClearQueue = () => {
+    setClearedQueue(true);
     queue.clear();
     setQueue(queue);
     setArr(defaultQueue);
+    setClearedQueue(false);
   };
 
   return (
@@ -82,20 +95,20 @@ export const QueuePage: React.FC = () => {
         <Button
           text="Добавить"
           onClick={handleAddNumber}
-          disabled={inputValue === "" || queue.isFull()}
-          isLoader={loader}
+          disabled={inputValue === "" || queue.isFull() || removedFromQueue}
+          isLoader={addedToQueue}
         />
         <Button
           text="Удалить"
           onClick={handleDeleteNumber}
-          disabled={!arr.length || queue.isEmpty()}
-          isLoader={loader}
+          disabled={!arr.length || queue.isEmpty() || addedToQueue}
+          isLoader={removedFromQueue}
         />
         <Button
           text="Очистить"
           onClick={handleClearQueue}
-          disabled={!arr.length || queue.isEmpty()}
-          isLoader={loader}
+          disabled={!arr.length || queue.isEmpty() || addedToQueue || removedFromQueue}
+          isLoader={clearedQueue}
         />
       </div>
       <ul className={styles.circles} >
