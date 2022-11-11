@@ -6,7 +6,8 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { TArray } from "../../types/sort";
 import { Direction } from "../../types/direction";
-import { delay, createArr } from "../../utils/functions";
+import { delay } from "../../utils/functions";
+import { createArr } from "./utils";
 import { DELAY_SHORT } from "../../utils/constants";
 import styles from "./sorting-page.module.css";
 

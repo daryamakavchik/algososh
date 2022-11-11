@@ -19,6 +19,7 @@ export const QueuePage: React.FC = () => {
   const [queue, setQueue] = useState(new Queue<TQueueItem>(7));
   const [inputValue, setInputValue] = useState("");
   const [buttons, setDisabledButtons] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -82,16 +83,19 @@ export const QueuePage: React.FC = () => {
           text="Добавить"
           onClick={handleAddNumber}
           disabled={inputValue === "" || queue.isFull()}
+          isLoader={loader}
         />
         <Button
           text="Удалить"
           onClick={handleDeleteNumber}
           disabled={!arr.length || queue.isEmpty()}
+          isLoader={loader}
         />
         <Button
           text="Очистить"
           onClick={handleClearQueue}
           disabled={!arr.length || queue.isEmpty()}
+          isLoader={loader}
         />
       </div>
       <ul className={styles.circles} >

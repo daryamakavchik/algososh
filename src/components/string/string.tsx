@@ -5,7 +5,8 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { TArray } from "../../types/string";
 import { ElementStates } from "../../types/element-states";
-import { delay, swap } from "../../utils/functions";
+import { delay } from "../../utils/functions";
+import { swap } from "./utils";
 import { DELAY_LONG } from "../../utils/constants";
 import styles from "./string.module.css";
 
