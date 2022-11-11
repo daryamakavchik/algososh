@@ -25,7 +25,7 @@ export const QueuePage: React.FC = () => {
   };
 
   const handleAddNumber = async () => {
-    if (inputValue) {
+    if (inputValue && !queue.isFull()) {
       setInputValue("");
       queue.enqueue({ value: inputValue, color: ElementStates.Default });
       setQueue(queue);
