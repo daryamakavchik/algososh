@@ -69,21 +69,16 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
 
   deleteTail() {
-    if (this.head == null) return null;
-
-    if (this.head.next == null) {
-      return null;
-    }
-
-    var second_last = this.head;
+    if (!this.head) return null;
+    let currHead = this.head;
     while (
-      second_last !== null &&
-      second_last.next !== null &&
-      second_last.next.next != null
+      currHead !== null &&
+      currHead.next !== null &&
+      currHead.next.next != null
     )
-      second_last = second_last.next;
-    second_last.next = null;
-
+    currHead = currHead.next;
+    currHead.next = null;
+    this.size--;
     return this.head;
   }
 
@@ -91,12 +86,16 @@ export class LinkedList<T> implements ILinkedList<T> {
     let node = new LinkedListNode(element);
     if (this.size === 0) {
       this.head = node;
+      this.tail = this.head.next;
     } else {
       let current = this.head;
       while (current && current.next !== null) {
         current = current.next;
       }
-      if (current) current.next = new LinkedListNode(element);
+      if (current && current.next === null) { 
+        current.next = new LinkedListNode(element);
+        this.tail = current.next;
+      };
     }
     this.size++;
   }

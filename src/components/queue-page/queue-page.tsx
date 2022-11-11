@@ -7,16 +7,16 @@ import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/functions";
-import { DELAY_SHORT } from "../../utils/constants";
+import { DELAY_SHORT, MAX_QUEUE_INPUT_LENGTH, MAX_QUEUE_LENGTH } from "../../utils/constants";
 import styles from "./queue-page.module.css";
 
 export const QueuePage: React.FC = () => {
-  const defaultQueue = Array.from({ length: 7 }, () => ({
+  const defaultQueue = Array.from({ length: MAX_QUEUE_LENGTH }, () => ({
     value: "",
     color: ElementStates.Default,
   }));
   const [arr, setArr] = useState<TQueueItem[]>(defaultQueue);
-  const [queue, setQueue] = useState(new Queue<TQueueItem>(7));
+  const [queue, setQueue] = useState(new Queue<TQueueItem>(MAX_QUEUE_LENGTH));
   const [inputValue, setInputValue] = useState("");
   const [buttons, setDisabledButtons] = useState(false);
   const [addedToQueue, setAddedToQueue] = useState(false);
@@ -64,7 +64,7 @@ export const QueuePage: React.FC = () => {
     arr[queue.getHead() - 1] = { value: "", color: ElementStates.Default };
     setArr([...arr]);
 
-    if (queue.getHead() === 7 && queue.getTail() === 7 && queue.isEmpty()) {
+    if (queue.getHead() === MAX_QUEUE_LENGTH && queue.getTail() === MAX_QUEUE_LENGTH && queue.isEmpty()) {
       arr[queue.getHead() - 1] = { value: "", color: ElementStates.Default, head: "head" };
       setArr([...arr]);
     }
@@ -86,7 +86,7 @@ export const QueuePage: React.FC = () => {
     <SolutionLayout title="Очередь">
       <div className={styles.container}>
         <Input
-          maxLength={4}
+          maxLength={MAX_QUEUE_INPUT_LENGTH}
           isLimitText={true}
           type="text"
           value={inputValue}
@@ -112,7 +112,7 @@ export const QueuePage: React.FC = () => {
         />
       </div>
       <ul className={styles.circles} >
-          {arr && arr.slice(0, 7).map((item, index) =>
+          {arr && arr.slice(0, MAX_QUEUE_LENGTH).map((item, index) =>
             <li key={index}>
               <Circle
                 letter={item.value}

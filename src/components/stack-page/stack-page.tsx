@@ -7,7 +7,7 @@ import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/functions";
-import { DELAY_SHORT } from "../../utils/constants";
+import { DELAY_SHORT, MAX_STACK_INPUT_LENGTH } from "../../utils/constants";
 import styles from "./stack-page.module.css";
 
 export const StackPage: React.FC = () => {
@@ -55,7 +55,7 @@ export const StackPage: React.FC = () => {
     <SolutionLayout title="Стек">
       <div className={styles.container}>
         <Input
-          maxLength={4}
+          maxLength={MAX_STACK_INPUT_LENGTH}
           isLimitText={true}
           type="text"
           value={inputValue}
