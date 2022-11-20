@@ -3,9 +3,12 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import styles from "./string.module.css";
 import { TArray } from "../../types/string";
 import { ElementStates } from "../../types/element-states";
+import { delay } from "../../utils/functions";
+import { swap } from "./utils";
+import { DELAY_LONG } from "../../utils/constants";
+import styles from "./string.module.css";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -14,13 +17,6 @@ export const StringComponent: React.FC = () => {
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
-  };
-
-  const swap = (arr: TArray[], firstIndex: number, secondIndex: number) => {
-    const temp = arr[firstIndex];
-    arr[firstIndex] = arr[secondIndex];
-    arr[secondIndex] = temp;
-    return arr;
   };
 
   const reverse = async (arr: TArray[]) => {
@@ -34,6 +30,7 @@ export const StringComponent: React.FC = () => {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
         setInputArr([...arr]);
+        await delay(DELAY_LONG);
       }
 
       swap(arr, i, j);
@@ -47,9 +44,7 @@ export const StringComponent: React.FC = () => {
   };
 
   const handleReverse = () => {
-    const newArr = inputValue
-      .split("")
-      .map((value) => ({ value, color: ElementStates.Default }));
+    const newArr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
     reverse(newArr);
   };
 

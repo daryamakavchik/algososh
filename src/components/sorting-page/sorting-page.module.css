@@ -20,8 +20,13 @@
     gap: 12px;
 }
 
+.button{
+  width: 205px;
+}
+
 .arrbutton{
     margin-left: 80px;
+    width: 205px;
 }
 
 .columns{

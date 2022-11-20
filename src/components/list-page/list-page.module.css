@@ -1,0 +1,69 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  max-width: 952px;
+  margin: 0 auto 38px auto;;
+}
+
+.inputcontainer{
+  max-width: 204px;
+}
+
+.button{
+ min-width: 175px;
+}
+
+.indexbutton{
+  min-width: 362px;
+}
+
+.circles{
+    display: flex;
+    width: 100%;
+    margin: 36px auto 0 auto;
+    padding: 0 0 0 21px;
+    list-style-type: none;
+    justify-content: center; 
+}
+
+.circlebox{
+  display: grid;
+  grid-template-columns: 80px 24px;
+  grid-template-rows: 56px 80px 56px;
+  row-gap: 8px;
+  column-gap: 16px;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.arrow{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  margin-right: 21px;
+}
+
+.bigcircle {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.smalltopcircle{
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.smallbottomcircle {
+  padding-top: 60px;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}

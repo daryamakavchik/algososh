@@ -12,6 +12,10 @@
   min-width: 130px;
 }
 
+.indexbutton{
+  min-width: 362px;
+}
+
 .button:hover:enabled {
   background-color: var(--bg-button-hover);
   cursor: pointer;
