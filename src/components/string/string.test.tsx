@@ -25,22 +25,22 @@ const setLoader = jest.fn();
 
 describe('Строка разворачивается корректно', () => {
     it("Строка с четным числом символов разворачивается корректно", async () => {
-        const string = 'hell';
-        const reverseString = 'lleh';
+        const string = 'string';
+        const reverseString = 'gnirts';
         await reverse(string.split('').map((value => ({ value, color: ElementStates.Default }))), setInputArr, setLoader );
         expect(setInputArr).toHaveBeenLastCalledWith(reverseString.split('').map((value => ({ value, color: ElementStates.Modified }))));
     });
 
     it("Строка с нечетным числом символов разворачивается корректно", async () => {
-        const string = 'hello';
-        const reverseString = 'olleh';
+        const string = 'str';
+        const reverseString = 'rts';
         await reverse(string.split('').map((value => ({ value, color: ElementStates.Default }))), setInputArr, setLoader);
         expect(setInputArr).toHaveBeenLastCalledWith(reverseString.split('').map((value => ({ value, color: ElementStates.Modified }))));
     });
 
     it("Строка с одним символом разворачивается корректно", async () => {
-        const string = 'h';
-        const reverseString = 'h';
+        const string = 's';
+        const reverseString = 's';
         await reverse(string.split('').map((value => ({ value, color: ElementStates.Default }))), setInputArr, setLoader);
         expect(setInputArr).toHaveBeenLastCalledWith(reverseString.split('').map((value => ({ value, color: ElementStates.Modified }))));
     });
