@@ -1,6 +1,6 @@
 import { Circle } from './circle';
 import { ElementStates } from '../../../types/element-states';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 
 describe('Круг рендерится без ошибок', () => {
     it("Круг без текста", () => {

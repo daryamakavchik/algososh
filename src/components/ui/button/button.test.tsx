@@ -1,6 +1,6 @@
 import { Button } from './button';
 import { render, screen, fireEvent } from '@testing-library/react';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 
 describe('Кнопка рендерится без ошибок', () => {
     it("Кнопка с текстом", () => {
