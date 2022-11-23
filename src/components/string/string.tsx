@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, Dispatch, SetStateAction } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
@@ -10,6 +10,30 @@ import { swap } from "./utils";
 import { DELAY_LONG } from "../../utils/constants";
 import styles from "./string.module.css";
 
+export const reverse = async (arr: TArray[], setInputArr:Dispatch<SetStateAction<TArray[]>>, setLoader:Dispatch<SetStateAction<boolean>>,) => {
+  setLoader(true);
+  const mid = Math.ceil(arr.length / 2);
+
+  for (let i = 0; i < mid; i++) {
+    let j = arr.length - 1 - i;
+
+    if (i !== j) {
+      arr[i].color = ElementStates.Changing;
+      arr[j].color = ElementStates.Changing;
+      setInputArr([...arr]);
+      await delay(DELAY_LONG);
+    }
+
+    swap(arr, i, j);
+
+    arr[i].color = ElementStates.Modified;
+    arr[j].color = ElementStates.Modified;
+
+    setInputArr([...arr]);
+  }
+  setLoader(false);
+};
+
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [inputArr, setInputArr] = useState<Array<TArray>>([]);
@@ -19,33 +43,9 @@ export const StringComponent: React.FC = () => {
     setInputValue(e.currentTarget.value);
   };
 
-  const reverse = async (arr: TArray[]) => {
-    setLoader(true);
-    const mid = Math.ceil(arr.length / 2);
-
-    for (let i = 0; i < mid; i++) {
-      let j = arr.length - 1 - i;
-
-      if (i !== j) {
-        arr[i].color = ElementStates.Changing;
-        arr[j].color = ElementStates.Changing;
-        setInputArr([...arr]);
-        await delay(DELAY_LONG);
-      }
-
-      swap(arr, i, j);
-
-      arr[i].color = ElementStates.Modified;
-      arr[j].color = ElementStates.Modified;
-
-      setInputArr([...arr]);
-    }
-    setLoader(false);
-  };
-
   const handleReverse = () => {
     const newArr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
-    reverse(newArr);
+    reverse(newArr, setInputArr, setLoader);
   };
 
   return (
