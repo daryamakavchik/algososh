@@ -32,7 +32,7 @@ export const sortAscendingSelect = async (arr: TArray[], setArr: Dispatch<SetSta
     [arr[i].value, arr[minInd].value] = [arr[minInd].value, arr[i].value];
     arr[i].color = ElementStates.Modified;
   }
-  arr[arr.length - 1].color = ElementStates.Modified;
+  arr.length > 0 ? arr[arr.length - 1].color = ElementStates.Modified : arr;
   setLoader(false);
 };
 
@@ -56,7 +56,7 @@ export const sortDescendingSelect = async (arr: TArray[], setArr: Dispatch<SetSt
     [arr[i].value, arr[maxInd].value] = [arr[maxInd].value, arr[i].value];
     arr[i].color = ElementStates.Modified;
   }
-  arr[arr.length - 1].color = ElementStates.Modified;
+  arr.length > 0 ? arr[arr.length - 1].color = ElementStates.Modified : arr;
   setLoader(false);
 };
 
@@ -74,7 +74,7 @@ export const sortAscendingBubble = async (arr: TArray[], setArr: Dispatch<SetSta
       }
       arr[j].color = ElementStates.Default;
     }
-    arr[arr.length - i - 1].color = ElementStates.Modified;
+    arr.length > 0 ? arr[arr.length - i - 1].color = ElementStates.Modified : arr;
   }
   setLoader(false);
 };
@@ -93,7 +93,7 @@ export const sortDescendingBubble = async (arr: TArray[], setArr: Dispatch<SetSt
       }
       arr[j].color = ElementStates.Default;
     }
-    arr[arr.length - i - 1].color = ElementStates.Modified;
+    arr.length > 0 ? arr[arr.length - i - 1].color = ElementStates.Modified : arr;
   }
   setLoader(false);
 };
