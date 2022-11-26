@@ -328,7 +328,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedToTail}
         />
         <Button
-        data-testid='removefromheadbutton'
+        data-testid='deletefromheadbutton'
           extraClass={styles.button}
           text="Удалить из head"
           onClick={handleRemoveFromHead}
@@ -336,7 +336,7 @@ export const ListPage: React.FC = () => {
           isLoader={removedFromHead}
         />
         <Button
-        data-testid='removefromtailbutton'
+        data-testid='deletefromtailbutton'
           extraClass={styles.button}
           text="Удалить из tail"
           onClick={handleRemoveFromTail}
@@ -347,6 +347,7 @@ export const ListPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
+            data-testid='indexinput'
             placeholder="Введите индекс"
             type="text"
             value={indexValue}
