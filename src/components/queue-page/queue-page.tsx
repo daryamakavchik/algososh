@@ -93,28 +93,32 @@ export const QueuePage: React.FC = () => {
           onChange={onChange}
         />
         <Button
+          data-testid='addbutton'
           text="Добавить"
           onClick={handleAddNumber}
           disabled={inputValue === "" || queue.isFull() || removedFromQueue}
           isLoader={addedToQueue}
         />
         <Button
+          data-testid='deletebutton'
           text="Удалить"
           onClick={handleDeleteNumber}
           disabled={!arr.length || queue.isEmpty() || addedToQueue}
           isLoader={removedFromQueue}
         />
         <Button
+          data-testid='clearbutton'
           text="Очистить"
           onClick={handleClearQueue}
           disabled={!arr.length || queue.isEmpty() || addedToQueue || removedFromQueue}
           isLoader={clearedQueue}
         />
       </div>
-      <ul className={styles.circles} >
+      <ul className={styles.circles} data-testid='circles' >
           {arr && arr.slice(0, MAX_QUEUE_LENGTH).map((item, index) =>
             <li key={index}>
               <Circle
+                data-testid='circle'
                 letter={item.value}
                 index={index}
                 state={item.color}
