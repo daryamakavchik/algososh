@@ -27,7 +27,7 @@ describe("Страница Связный список отображается 
 
   it("Список отображается корректно", function () {
     cy.get('#circleslist').find("li");
-    //checlklength
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 4);
 
     cy.get('[data-testid=circle]').each(($el) => {
       cy.get($el).should("have.css", "border-color", defaultColor);
@@ -69,12 +69,12 @@ describe("Страница Связный список отображается 
     cy.get('[data-testid=topcircle]');
 
     cy.get('[data-testid=topcircle]').contains(value);
-    //check top circle class having modified color
+    cy.get('[data-testid=topcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
-    //check circles length and arrows length
-
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 5);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 4);
 
     cy.get('[data-testid=circle]').each(($el, index, $list) => {
       cy.get($list.eq(0)).should("have.css", "border-color", changingColor);
@@ -120,15 +120,12 @@ describe("Страница Связный список отображается 
     cy.get('[data-testid=topcircle]');
 
     cy.get('[data-testid=topcircle]').contains(value);
-    // cy.get(testTopCircleSelector)
-    //   .find(testSmallCircleClass)
-    //   .should("have.css", "border-color", modifiedColor);
+    cy.get('[data-testid=topcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
-    //cy.get('[data-testid=circles]').should("have.length", 6);
-
-    // cy.get('[data-testid=arrow]').should("have.length", 5);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 6);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 5);
 
     cy.get('[data-testid=circle]').each(($el, index, $list) => {
       cy.get($list.eq(0)).should("have.css", "border-color", defaultColor);
@@ -171,18 +168,15 @@ describe("Страница Связный список отображается 
   it("Элемент удаляется из head", function () {
     cy.get('[data-testid=deletefromheadbutton]').click();
 
-    // cy.get(testBottomCircleSelector);
+    // cy.get('[data-testid=bottomcircle]');
 
-    // cy.get(testBottomCircleSelector).contains(value);
-    // cy.get(testBottomCircleSelector)
-    //   .find(testSmallCircleClass)
-    //   .should("have.css", "border-color", modifiedColor);
+    // cy.get('[data-testid=bottomcircle]').contains(value);
+    // cy.get('[data-testid=bottomcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
-    //cy.get('[data-testid=circles]').should("have.length", 5);
-
-    //cy.get('[data-testid=arrow]').should("have.length", 4);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 5);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 4);
 
     cy.get('[data-testid=circle]').each(($el) => {
       cy.get($el).should("have.css", "border-color", defaultColor);
@@ -213,18 +207,15 @@ describe("Страница Связный список отображается 
   it("Элемент удаляется из tail", function () {
     cy.get('[data-testid=deletefromtailbutton]').click();
 
-    // cy.get(testBottomCircleSelector);
+    // cy.get('[data-testid=bottomcircle]');
 
-    // cy.get(testBottomCircleSelector).contains(value);
-    // cy.get(testBottomCircleSelector)
-    //   .find(testSmallCircleClass)
-    //   .should("have.css", "border-color", modifiedColor);
+    // cy.get('[data-testid=bottomcircle]').contains(value);
+    // cy.get('[data-testid=bottomcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
-    cy.get('[data-testid=circle]').should("have.length", 4);
-
-    //cy.get('[data-testid=arrow]').should("have.length", 3);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 4);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 3);
 
     cy.get('[data-testid=circle]').each(($el) => {
       cy.get($el).should("have.css", "border-color", defaultColor);
@@ -261,9 +252,7 @@ describe("Страница Связный список отображается 
     cy.get('[data-testid=topcircle]');
 
     cy.get('[data-testid=topcircle]').contains(value);
-    // cy.get(testTopCircleSelector)
-    //   .find(testSmallCircleClass)
-    //   .should("have.css", "border-color", modifiedColor);
+    cy.get('[data-testid=topcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
@@ -275,18 +264,16 @@ describe("Страница Связный список отображается 
     cy.get('[data-testid=circle]').each(($el, index, $list) => {
       cy.get($list.eq(1)).should("have.css", "border-color", modifiedColor);
     });
-
-    //cy.get('[data-testid=circles]').should("have.length", 5);
-
-    //cy.get('[data-testid=arrow]').should("have.length", 4);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 5);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 4);
 
     cy.get('[data-testid=circle]').each(($el, index, $list) => {
       cy.get($list.eq(0)).should("have.css", "border-color", defaultColor);
       cy.get($list.eq(1)).should("have.css", "border-color", defaultColor);
       cy.get($list.eq(2)).should("have.css", "border-color", changingColor);
-      //expect($list.eq(2)).to.contain(`${value}`);
+      expect($list.eq(2)).to.contain(`${value}`);
       cy.get($list.eq(3)).should("have.css", "border-color", defaultColor);
-      //cy.get($list.eq(4)).should("have.css", "border-color", defaultColor);
+      cy.get($list.eq(4)).should("have.css", "border-color", defaultColor);
     });
 
     cy.wait(DELAY_SHORT);
@@ -349,22 +336,19 @@ describe("Страница Связный список отображается 
       cy.get($list.eq(4)).should("have.css", "border-color", defaultColor);
     });
 
-    // cy.get(testBottomCircleSelector);
+    // cy.get('[data-testid=bottomcircle]');
 
-    // cy.get(testBottomCircleSelector).contains(value);
-    // cy.get(testBottomCircleSelector)
-    //   .find(testSmallCircleClass)
-    //   .should("have.css", "border-color", modifiedColor);
+    // cy.get('[data-testid=bottomcircle]').contains(value);
+    // cy.get('[data-testid=bottomcircle]').should("have.css", "border-color", modifiedColor);
 
     cy.wait(DELAY_SHORT);
 
-    // cy.get('[data-testid=circles]').should("have.length", 4);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').should('have.length', 4);
+    cy.get('[data-testid=circles]').get('[data-testid=circle]').get('[data-testid=circleitem]').get('[data-testid=arrow]').should('have.length', 3);
 
-    // cy.get('[data-testid=arrow]').should("have.length", 3);
-
-    // cy.get('[data-testid=circle]').each(($el) => {
-    //   cy.get($el).should("have.css", "border-color", defaultColor);
-    // });
+    cy.get('[data-testid=circle]').each(($el) => {
+      cy.get($el).should("have.css", "border-color", defaultColor);
+    });
 
     cy.get('[data-testid=head]').within(($head) => {
       cy.get($head.eq(0)).should("contain", "head");
@@ -377,12 +361,12 @@ describe("Страница Связный список отображается 
       cy.get($tail.eq(0)).should("contain", "");
       cy.get($tail.eq(1)).should("contain", "");
       cy.get($tail.eq(2)).should("contain", "");
-     // cy.get($tail.eq(3)).should("contain", "tail");
+     cy.get($tail.eq(3)).should("contain", "tail");
     });
 
-    // cy.get('[data-testid=index]').each(($el, index, $list) => {
-    //   cy.get($el).should("contain", index);
-    // });
+    cy.get('[data-testid=index]').each(($el, index, $list) => {
+      cy.get($el).should("contain", index);
+    });
   });
 
 });

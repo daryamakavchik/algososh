@@ -374,7 +374,7 @@ export const ListPage: React.FC = () => {
       <ul className={styles.circles} data-testid='circles' id='circleslist'>
         {arr &&
           arr.map((item, index) => (
-            <li key={index} className={styles.circlebox}>
+            <li key={index} className={styles.circlebox} data-testid='circleitem'>
               {loading === true &&
                 (addedToHead === true ||
                   addedToTail === true ||
@@ -382,7 +382,7 @@ export const ListPage: React.FC = () => {
                 index === indexOfInputValue && (
                   <div className={styles.smalltopcircle}>
                     <Circle
-                    data-testid='circle'
+                    data-testid='topcircle'
                       isSmall
                       letter={inputValue}
                       state={ElementStates.Changing}
@@ -396,6 +396,7 @@ export const ListPage: React.FC = () => {
                 index === indexOfInputValue && (
                   <div className={styles.smallbottomcircle}>
                     <Circle
+                    data-testid='bottomcircle'
                       isSmall
                       letter={circleValue}
                       state={ElementStates.Changing}
@@ -404,7 +405,7 @@ export const ListPage: React.FC = () => {
                 )}
               <div className={styles.bigcircle}>
                 <Circle
-                data-testid='circle'
+                  data-testid='circle'
                   letter={item.value}
                   state={item.color}
                   index={index}
@@ -413,8 +414,8 @@ export const ListPage: React.FC = () => {
                 />
               </div>
               {index !== arr.length - 1 && (
-                <div className={styles.arrow}>
-                  <ArrowIcon data-testid = 'arrow' />
+                <div className={styles.arrow} data-testid = 'arrow'>
+                  <ArrowIcon />
                 </div>
               )}
             </li>
