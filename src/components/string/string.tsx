@@ -60,6 +60,7 @@ export const StringComponent: React.FC = () => {
           />
           <div className={styles.button}>
             <Button
+              type='submit'
               text="Развернуть"
               isLoader={loader}
               disabled={inputValue === "" ? true : false}
@@ -71,7 +72,7 @@ export const StringComponent: React.FC = () => {
           {inputArr &&
             inputArr.map((item, index) => (
               <li key={index}>
-                <Circle letter={item.value} state={item.color} />
+                <Circle letter={item.value} state={item.color} extraClass='circle' />
               </li>
             ))}
         </ul>
