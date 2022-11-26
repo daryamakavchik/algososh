@@ -1,7 +1,7 @@
 import { DELAY_SHORT } from '../../src/utils/constants';
 const url = "http://localhost:3000";
 
-describe("Строка отображается корректно", function () {
+describe("Страница Фибоначчи отображается корректно", function () {
   before(function () {
     cy.visit(`${url}/fibonacci`);
   });
