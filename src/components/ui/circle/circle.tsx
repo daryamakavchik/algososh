@@ -35,12 +35,13 @@ export const Circle: React.FC<CircleProps> = ({
         {head}
       </div>
       <div
-        data-testid ='circle'
+        data-testid = { !isSmall ? 'circle' : 'topcircle' }
         className={`${styles.circle}  ${isSmall ? styles.small : ""} ${
           styles[state]
         }`}
       >
         <p
+         data-testid = 'letter'
           className={`text text_type_circle text_color_input ${styles.letter}`}
         >
           {letter}

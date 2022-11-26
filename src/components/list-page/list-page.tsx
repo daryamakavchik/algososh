@@ -302,6 +302,7 @@ export const ListPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
+          data-testid='input'
             placeholder="Введите значение"
             maxLength={MAX_LIST_INPUT_LENGTH}
             isLimitText={true}
@@ -311,6 +312,7 @@ export const ListPage: React.FC = () => {
           />
         </div>
         <Button
+          data-testid='addtoheadbutton'
           extraClass={styles.button}
           text="Добавить в head"
           onClick={handleAddToHead}
@@ -318,6 +320,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedToHead}
         />
         <Button
+        data-testid='addtotailbutton'
           extraClass={styles.button}
           text="Добавить в tail"
           onClick={handleAddToTail}
@@ -325,6 +328,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedToTail}
         />
         <Button
+        data-testid='removefromheadbutton'
           extraClass={styles.button}
           text="Удалить из head"
           onClick={handleRemoveFromHead}
@@ -332,6 +336,7 @@ export const ListPage: React.FC = () => {
           isLoader={removedFromHead}
         />
         <Button
+        data-testid='removefromtailbutton'
           extraClass={styles.button}
           text="Удалить из tail"
           onClick={handleRemoveFromTail}
@@ -349,6 +354,7 @@ export const ListPage: React.FC = () => {
           />
         </div>
         <Button
+        data-testid='addbyindexbutton'
           extraClass={styles.indexbutton}
           text="Добавить по индексу"
           onClick={handleAddByIndex}
@@ -356,6 +362,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedByIndex}
         />
         <Button
+        data-testid='deletebyindexbutton'
           extraClass={styles.indexbutton}
           text="Удалить по индексу"
           onClick={handleRemoveByIndex}
@@ -363,7 +370,7 @@ export const ListPage: React.FC = () => {
           isLoader={removedByIndex}
         />
       </div>
-      <ul className={styles.circles}>
+      <ul className={styles.circles} data-testid='circles' id='circleslist'>
         {arr &&
           arr.map((item, index) => (
             <li key={index} className={styles.circlebox}>
@@ -374,6 +381,7 @@ export const ListPage: React.FC = () => {
                 index === indexOfInputValue && (
                   <div className={styles.smalltopcircle}>
                     <Circle
+                    data-testid='circle'
                       isSmall
                       letter={inputValue}
                       state={ElementStates.Changing}
@@ -395,6 +403,7 @@ export const ListPage: React.FC = () => {
                 )}
               <div className={styles.bigcircle}>
                 <Circle
+                data-testid='circle'
                   letter={item.value}
                   state={item.color}
                   index={index}
@@ -404,7 +413,7 @@ export const ListPage: React.FC = () => {
               </div>
               {index !== arr.length - 1 && (
                 <div className={styles.arrow}>
-                  <ArrowIcon />
+                  <ArrowIcon data-testid = 'arrow' />
                 </div>
               )}
             </li>
