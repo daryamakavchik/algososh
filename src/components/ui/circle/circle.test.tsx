@@ -1,3 +1,4 @@
+import React from 'react';
 import { Circle } from './circle';
 import { ElementStates } from '../../../types/element-states';
 import * as renderer from 'react-test-renderer';

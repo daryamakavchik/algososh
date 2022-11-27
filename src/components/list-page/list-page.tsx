@@ -180,7 +180,7 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromHead = async () => {
     if (list.getSize() > 0) {
-      const newArr = list
+      const newArr:Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       setCircleValue(newArr[0].value);
@@ -204,7 +204,7 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromTail = async () => {
     if (list.getSize() > 0) {
-      const newArr = list
+      const newArr:Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       setCircleValue(newArr[newArr.length - 1].value);
@@ -268,7 +268,7 @@ export const ListPage: React.FC = () => {
     if (+indexValue < list.getSize()) {
       setLoading(true);
       setRemovedByIndex(true);
-      const newArr = list
+      const newArr:Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       for (let i = 0; i <= +indexValue; i++) {
@@ -394,7 +394,7 @@ export const ListPage: React.FC = () => {
                   removedFromHead === true ||
                   removedByIndex === true) &&
                 index === indexOfInputValue && (
-                  <div className={styles.smallbottomcircle}>
+                  <div className={styles.smallbottomcircle} id='bottomcircle'>
                     <Circle
                     data-testid='bottomcircle'
                       isSmall

@@ -1,4 +1,4 @@
-import { DELAY_LONG } from '../../src/utils/constants';
+import { DELAY_LONG } from "../../src/utils/constants";
 const url = "http://localhost:3000";
 
 describe("Строка отображается корректно", function () {
@@ -53,8 +53,6 @@ describe("Строка отображается корректно", function ()
     cy.wait(DELAY_LONG);
 
     cy.get("[data-testid=circle]").each(($el, index, $list) => {
-      cy.get($list).should("have.length", stringLength);
-      cy.get($el).contains(changingString[index]);
       cy.get($el).should("have.css", "border-color", changingColors[index]);
     });
 

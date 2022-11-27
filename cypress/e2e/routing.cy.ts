@@ -1,3 +1,4 @@
+export {}
 const url = 'http://localhost:3000';
 
 describe("Роутинг настроен корректно", function () {
