@@ -1,5 +1,4 @@
-export {}
-const url = 'http://localhost:3000';
+import { url } from './utils';
 
 describe("Роутинг настроен корректно", function () {
   before(function () {

@@ -1,5 +1,5 @@
 import { DELAY_SHORT } from '../../src/utils/constants';
-const url = "http://localhost:3000";
+import { url } from './utils';
 
 describe("Страница Фибоначчи отображается корректно", function () {
   before(function () {

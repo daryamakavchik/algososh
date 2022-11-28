@@ -1,5 +1,5 @@
 import { DELAY_LONG } from "../../src/utils/constants";
-const url = "http://localhost:3000";
+import { url } from './utils';
 
 describe("Строка отображается корректно", function () {
   before(function () {
