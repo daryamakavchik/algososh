@@ -1,5 +1,5 @@
 import { DELAY_SHORT } from '../../src/utils/constants';
-import { url } from './utils';
+import { url, COLOR_DEFAULT } from './utils';
 
 describe("Страница Фибоначчи отображается корректно", function () {
   before(function () {
@@ -14,7 +14,7 @@ describe("Страница Фибоначчи отображается корр�
 it("Числа Фибоначчи генерируются корректно", function () {
     const num = 5;
     const finalArr = [1, 1, 2, 3, 5, 8];
-    const color = "rgb(0, 50, 255)";
+    const color = COLOR_DEFAULT;
     
     cy.get("input").type(`${num}`);
     cy.get("button").should("not.be.disabled");

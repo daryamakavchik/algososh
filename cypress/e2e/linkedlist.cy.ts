@@ -1,5 +1,5 @@
 import { DELAY_SHORT } from "../../src/utils/constants";
-import { url } from './utils';
+import { url, COLOR_DEFAULT, COLOR_CHANGING, COLOR_MODIFIED } from './utils';
 
 describe("Страница Связный список отображается корректно", function () {
   before(function () {
@@ -11,9 +11,6 @@ describe("Страница Связный список отображается 
     cy.get("button").should("be.disabled");
   });
 
-  const defaultColor = "rgb(0, 50, 255)";
-  const modifiedColor = "rgb(210, 82, 225)";
-  const changingColor = "rgb(127, 224, 81)";
   const value = 1;
   const index = 2;
 
@@ -32,7 +29,7 @@ describe("Страница Связный список отображается 
       .should("have.length", 4);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -74,7 +71,7 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=topcircle]").should(
       "have.css",
       "border-color",
-      modifiedColor
+      COLOR_MODIFIED
     );
 
     cy.wait(DELAY_SHORT);
@@ -91,9 +88,9 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 0) {
-          cy.get($el).should("have.css", "border-color", changingColor);
+          cy.get($el).should("have.css", "border-color", COLOR_CHANGING);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -101,7 +98,7 @@ describe("Страница Связный список отображается 
     cy.wait(DELAY_SHORT);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -143,7 +140,7 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=topcircle]").should(
       "have.css",
       "border-color",
-      modifiedColor
+      COLOR_MODIFIED
     );
 
     cy.wait(DELAY_SHORT);
@@ -160,9 +157,9 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 5) {
-          cy.get($el).should("have.css", "border-color", changingColor);
+          cy.get($el).should("have.css", "border-color", COLOR_CHANGING);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -170,7 +167,7 @@ describe("Страница Связный список отображается 
     cy.wait(DELAY_SHORT);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -216,7 +213,7 @@ describe("Страница Связный список отображается 
       .should("have.length", 4);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -263,7 +260,7 @@ describe("Страница Связный список отображается 
       .should("have.length", 3);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -308,7 +305,7 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=topcircle]").should(
       "have.css",
       "border-color",
-      modifiedColor
+      COLOR_MODIFIED
     );
 
     cy.wait(DELAY_SHORT);
@@ -316,7 +313,7 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index, $list) => {
         if ($el && index === 0) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         }
       }
     );
@@ -326,7 +323,7 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index, $list) => {
         if ($el && index === 1) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         }
       }
     );
@@ -343,10 +340,10 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 2) {
-          cy.get($el).should("have.css", "border-color", changingColor);
+          cy.get($el).should("have.css", "border-color", COLOR_CHANGING);
           expect($el).to.contain(`${value}`);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -354,7 +351,7 @@ describe("Страница Связный список отображается 
     cy.wait(DELAY_SHORT);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(
@@ -392,9 +389,9 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 0) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -404,11 +401,11 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 0) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else if ($el && index === 1) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -418,13 +415,13 @@ describe("Страница Связный список отображается 
     cy.get("[data-testid=circle]").each(
       ($el: keyof HTMLElementTagNameMap, index) => {
         if ($el && index === 0) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else if ($el && index === 1) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else if ($el && index === 2) {
-          cy.get($el).should("have.css", "border-color", modifiedColor);
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
         } else {
-          cy.get($el).should("have.css", "border-color", defaultColor);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
         }
       }
     );
@@ -443,7 +440,7 @@ describe("Страница Связный список отображается 
       .should("have.length", 3);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
-      cy.get($el).should("have.css", "border-color", defaultColor);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").each(

@@ -1,5 +1,5 @@
 import { DELAY_LONG } from "../../src/utils/constants";
-import { url } from './utils';
+import { url, COLOR_DEFAULT, COLOR_CHANGING, COLOR_MODIFIED } from './utils';
 
 describe("Строка отображается корректно", function () {
   before(function () {
@@ -15,29 +15,29 @@ describe("Строка отображается корректно", function ()
     const stringLength = 5;
     const initialString = "strin";
     const initialColors = [
-      "rgb(210, 82, 225)",
-      "rgb(0, 50, 255)",
-      "rgb(0, 50, 255)",
-      "rgb(0, 50, 255)",
-      "rgb(210, 82, 225)",
+      COLOR_MODIFIED,
+      COLOR_DEFAULT,
+      COLOR_DEFAULT,
+      COLOR_DEFAULT,
+      COLOR_MODIFIED,
     ];
 
     const changingString = "nirts";
     const changingColors = [
-      "rgb(127, 224, 81)",
-      "rgb(210, 82, 225)",
-      "rgb(0, 50, 255)",
-      "rgb(210, 82, 225)",
-      "rgb(127, 224, 81)",
+      COLOR_CHANGING,
+      COLOR_MODIFIED,
+      COLOR_DEFAULT,
+      COLOR_MODIFIED,
+      COLOR_CHANGING,
     ];
 
     const finalString = "nirts";
     const finalColors = [
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
-      "rgb(127, 224, 81)",
+      COLOR_CHANGING,
+      COLOR_CHANGING,
+      COLOR_CHANGING,
+      COLOR_CHANGING,
+      COLOR_CHANGING,
     ];
 
     cy.get("input").type(initialString);

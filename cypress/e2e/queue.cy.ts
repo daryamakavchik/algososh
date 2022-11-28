@@ -1,5 +1,5 @@
 import { DELAY_SHORT } from "../../src/utils/constants";
-import { url } from './utils';
+import { url, COLOR_DEFAULT, COLOR_MODIFIED } from './utils';
 
 describe("Страница Очередь отображается корректно", function () {
   before(function () {
@@ -14,13 +14,11 @@ describe("Страница Очередь отображается коррек�
   const firstElement = 1;
   const secondElement = 2;
   const thirdElement = 3;
-  const modifiedColor = "rgb(210, 82, 225)";
-  const defaultColor = "rgb(0, 50, 255)";
 
   it("Элементы верно добавляются в очередь", function () {
 
     cy.get("[data-testid=circle]").each(($list) => {
-      cy.get($list).should("have.css", "border-color", defaultColor);
+      cy.get($list).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("input").should("be.empty");
@@ -28,9 +26,9 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=addbutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", modifiedColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(0)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
@@ -54,10 +52,10 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=addbutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(1)).should("have.css", "border-color", modifiedColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
@@ -84,11 +82,11 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=addbutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(1)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(2)).should("have.css", "border-color", modifiedColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
@@ -118,11 +116,11 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=deletebutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", modifiedColor);
-      cy.get($letters.eq(2)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_MODIFIED);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(2)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
@@ -150,10 +148,10 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=deletebutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(1)).should("have.css", "border-color", modifiedColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
@@ -181,11 +179,11 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=deletebutton]").click();
 
     cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(1)).should("have.css", "border-color", defaultColor);
-      cy.get($letters.eq(2)).should("have.css", "border-color", modifiedColor);
+      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", defaultColor);
+      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=circle]").within(($letters) => {
