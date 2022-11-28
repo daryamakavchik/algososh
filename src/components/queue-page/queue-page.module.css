@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     flex-direction: row;
     gap: 12px;
@@ -6,7 +6,7 @@
     margin: 0 auto;
 }
 
-.circles{
+.circles {
     display: flex;
     width: 100%;
     margin: 48px auto 0 auto;

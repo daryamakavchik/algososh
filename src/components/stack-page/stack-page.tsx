@@ -62,30 +62,30 @@ export const StackPage: React.FC = () => {
           onChange={onChange}
         />
         <Button
-          data-testid = 'addbutton'
+          data-testid="addbutton"
           text="Добавить"
           onClick={handleAddNumber}
           disabled={inputValue === ""}
         />
         <Button
-          data-testid = 'deletebutton'
+          data-testid="deletebutton"
           text="Удалить"
           onClick={handleDeleteNumber}
           disabled={!arr.length}
         />
         <Button
-          data-testid = 'clearbutton'
+          data-testid="clearbutton"
           text="Очистить"
           onClick={handleClearStack}
           disabled={!arr.length}
         />
       </div>
-      <ul className={styles.circles} data-testid = 'circles'>
+      <ul className={styles.circles} data-testid="circles">
         {arr &&
           arr.map((item, index) => (
             <li key={index}>
-              <Circle 
-                data-testid = 'circle'
+              <Circle
+                data-testid="circle"
                 letter={item.value}
                 state={item.color}
                 index={index}

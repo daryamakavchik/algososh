@@ -11,9 +11,13 @@ import { createArr } from "./utils";
 import { DELAY_SHORT } from "../../utils/constants";
 import styles from "./sorting-page.module.css";
 
-export const sortAscendingSelect = async (arr: TArray[], setArr: Dispatch<SetStateAction<TArray[]>>, setLoader: Dispatch<SetStateAction<boolean>>) => {
+export const sortAscendingSelect = async (
+  arr: TArray[],
+  setArr: Dispatch<SetStateAction<TArray[]>>,
+  setLoader: Dispatch<SetStateAction<boolean>>
+) => {
   setLoader(true);
-    for (let i = 0; i < arr.length - 1; i++) {
+  for (let i = 0; i < arr.length - 1; i++) {
     let minInd = i;
     for (let j = i + 1; j < arr.length; j++) {
       arr[i].color = ElementStates.Changing;
@@ -31,11 +35,17 @@ export const sortAscendingSelect = async (arr: TArray[], setArr: Dispatch<SetSta
     [arr[i].value, arr[minInd].value] = [arr[minInd].value, arr[i].value];
     arr[i].color = ElementStates.Modified;
   }
-  arr.length > 0 ? arr[arr.length - 1].color = ElementStates.Modified : arr = arr;
+  arr.length > 0
+    ? (arr[arr.length - 1].color = ElementStates.Modified)
+    : (arr = arr);
   setLoader(false);
 };
 
-export const sortDescendingSelect = async (arr: TArray[], setArr: Dispatch<SetStateAction<TArray[]>>, setLoader: Dispatch<SetStateAction<boolean>>) => {
+export const sortDescendingSelect = async (
+  arr: TArray[],
+  setArr: Dispatch<SetStateAction<TArray[]>>,
+  setLoader: Dispatch<SetStateAction<boolean>>
+) => {
   setLoader(true);
   for (let i = 0; i < arr.length - 1; i++) {
     let maxInd = i;
@@ -55,11 +65,17 @@ export const sortDescendingSelect = async (arr: TArray[], setArr: Dispatch<SetSt
     [arr[i].value, arr[maxInd].value] = [arr[maxInd].value, arr[i].value];
     arr[i].color = ElementStates.Modified;
   }
-  arr.length > 0 ? arr[arr.length - 1].color = ElementStates.Modified : arr = arr;
+  arr.length > 0
+    ? (arr[arr.length - 1].color = ElementStates.Modified)
+    : (arr = arr);
   setLoader(false);
 };
 
-export const sortAscendingBubble = async (arr: TArray[], setArr: Dispatch<SetStateAction<TArray[]>>, setLoader: Dispatch<SetStateAction<boolean>>) => {
+export const sortAscendingBubble = async (
+  arr: TArray[],
+  setArr: Dispatch<SetStateAction<TArray[]>>,
+  setLoader: Dispatch<SetStateAction<boolean>>
+) => {
   setLoader(true);
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
@@ -78,7 +94,11 @@ export const sortAscendingBubble = async (arr: TArray[], setArr: Dispatch<SetSta
   setLoader(false);
 };
 
-export const sortDescendingBubble = async (arr: TArray[], setArr: Dispatch<SetStateAction<TArray[]>>, setLoader: Dispatch<SetStateAction<boolean>>) => {
+export const sortDescendingBubble = async (
+  arr: TArray[],
+  setArr: Dispatch<SetStateAction<TArray[]>>,
+  setLoader: Dispatch<SetStateAction<boolean>>
+) => {
   setLoader(true);
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {

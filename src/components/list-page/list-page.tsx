@@ -180,7 +180,7 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromHead = async () => {
     if (list.getSize() > 0) {
-      const newArr:Array<any> = list
+      const newArr: Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       setCircleValue(newArr[0].value);
@@ -204,7 +204,7 @@ export const ListPage: React.FC = () => {
 
   const handleRemoveFromTail = async () => {
     if (list.getSize() > 0) {
-      const newArr:Array<any> = list
+      const newArr: Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       setCircleValue(newArr[newArr.length - 1].value);
@@ -268,7 +268,7 @@ export const ListPage: React.FC = () => {
     if (+indexValue < list.getSize()) {
       setLoading(true);
       setRemovedByIndex(true);
-      const newArr:Array<any> = list
+      const newArr: Array<any> = list
         .toArray()
         .map((item) => ({ value: item, color: ElementStates.Default }));
       for (let i = 0; i <= +indexValue; i++) {
@@ -302,7 +302,7 @@ export const ListPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
-          data-testid='input'
+            data-testid="input"
             placeholder="Введите значение"
             maxLength={MAX_LIST_INPUT_LENGTH}
             isLimitText={true}
@@ -312,7 +312,7 @@ export const ListPage: React.FC = () => {
           />
         </div>
         <Button
-          data-testid='addtoheadbutton'
+          data-testid="addtoheadbutton"
           extraClass={styles.button}
           text="Добавить в head"
           onClick={handleAddToHead}
@@ -320,7 +320,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedToHead}
         />
         <Button
-        data-testid='addtotailbutton'
+          data-testid="addtotailbutton"
           extraClass={styles.button}
           text="Добавить в tail"
           onClick={handleAddToTail}
@@ -328,7 +328,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedToTail}
         />
         <Button
-        data-testid='deletefromheadbutton'
+          data-testid="deletefromheadbutton"
           extraClass={styles.button}
           text="Удалить из head"
           onClick={handleRemoveFromHead}
@@ -336,7 +336,7 @@ export const ListPage: React.FC = () => {
           isLoader={removedFromHead}
         />
         <Button
-        data-testid='deletefromtailbutton'
+          data-testid="deletefromtailbutton"
           extraClass={styles.button}
           text="Удалить из tail"
           onClick={handleRemoveFromTail}
@@ -347,7 +347,7 @@ export const ListPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
-            data-testid='indexinput'
+            data-testid="indexinput"
             placeholder="Введите индекс"
             type="text"
             value={indexValue}
@@ -355,7 +355,7 @@ export const ListPage: React.FC = () => {
           />
         </div>
         <Button
-        data-testid='addbyindexbutton'
+          data-testid="addbyindexbutton"
           extraClass={styles.indexbutton}
           text="Добавить по индексу"
           onClick={handleAddByIndex}
@@ -363,7 +363,7 @@ export const ListPage: React.FC = () => {
           isLoader={addedByIndex}
         />
         <Button
-        data-testid='deletebyindexbutton'
+          data-testid="deletebyindexbutton"
           extraClass={styles.indexbutton}
           text="Удалить по индексу"
           onClick={handleRemoveByIndex}
@@ -371,10 +371,14 @@ export const ListPage: React.FC = () => {
           isLoader={removedByIndex}
         />
       </div>
-      <ul className={styles.circles} data-testid='circles' id='circleslist'>
+      <ul className={styles.circles} data-testid="circles" id="circleslist">
         {arr &&
           arr.map((item, index) => (
-            <li key={index} className={styles.circlebox} data-testid='circleitem'>
+            <li
+              key={index}
+              className={styles.circlebox}
+              data-testid="circleitem"
+            >
               {loading === true &&
                 (addedToHead === true ||
                   addedToTail === true ||
@@ -382,7 +386,7 @@ export const ListPage: React.FC = () => {
                 index === indexOfInputValue && (
                   <div className={styles.smalltopcircle}>
                     <Circle
-                    data-testid='topcircle'
+                      data-testid="topcircle"
                       isSmall
                       letter={inputValue}
                       state={ElementStates.Changing}
@@ -394,9 +398,9 @@ export const ListPage: React.FC = () => {
                   removedFromHead === true ||
                   removedByIndex === true) &&
                 index === indexOfInputValue && (
-                  <div className={styles.smallbottomcircle} id='bottomcircle'>
+                  <div className={styles.smallbottomcircle} id="bottomcircle">
                     <Circle
-                    data-testid='bottomcircle'
+                      data-testid="bottomcircle"
                       isSmall
                       letter={circleValue}
                       state={ElementStates.Changing}
@@ -405,7 +409,7 @@ export const ListPage: React.FC = () => {
                 )}
               <div className={styles.bigcircle}>
                 <Circle
-                  data-testid='circle'
+                  data-testid="circle"
                   letter={item.value}
                   state={item.color}
                   index={index}
@@ -414,7 +418,7 @@ export const ListPage: React.FC = () => {
                 />
               </div>
               {index !== arr.length - 1 && (
-                <div className={styles.arrow} data-testid = 'arrow'>
+                <div className={styles.arrow} data-testid="arrow">
                   <ArrowIcon />
                 </div>
               )}
