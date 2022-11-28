@@ -7,7 +7,11 @@ import { Circle } from "../ui/circle/circle";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/functions";
-import { DELAY_SHORT, MAX_QUEUE_INPUT_LENGTH, MAX_QUEUE_LENGTH } from "../../utils/constants";
+import {
+  DELAY_SHORT,
+  MAX_QUEUE_INPUT_LENGTH,
+  MAX_QUEUE_LENGTH,
+} from "../../utils/constants";
 import styles from "./queue-page.module.css";
 
 export const QueuePage: React.FC = () => {
@@ -40,10 +44,16 @@ export const QueuePage: React.FC = () => {
       setArr([...arr]);
 
       await delay(DELAY_SHORT);
-      arr[queue.getTail() - 1] = { value: inputValue, color: ElementStates.Changing };
+      arr[queue.getTail() - 1] = {
+        value: inputValue,
+        color: ElementStates.Changing,
+      };
       setArr([...arr]);
 
-      arr[queue.getTail() - 1] = { value: inputValue, color: ElementStates.Default };
+      arr[queue.getTail() - 1] = {
+        value: inputValue,
+        color: ElementStates.Default,
+      };
       setArr([...arr]);
     }
     setLoader(false);
@@ -57,15 +67,26 @@ export const QueuePage: React.FC = () => {
     queue.dequeue();
     setQueue(queue);
 
-    arr[queue.getHead() - 1] = { value: arr[queue.getHead() - 1].value, color: ElementStates.Changing };
+    arr[queue.getHead() - 1] = {
+      value: arr[queue.getHead() - 1].value,
+      color: ElementStates.Changing,
+    };
     setArr([...arr]);
 
     await delay(DELAY_SHORT);
     arr[queue.getHead() - 1] = { value: "", color: ElementStates.Default };
     setArr([...arr]);
 
-    if (queue.getHead() === MAX_QUEUE_LENGTH && queue.getTail() === MAX_QUEUE_LENGTH && queue.isEmpty()) {
-      arr[queue.getHead() - 1] = { value: "", color: ElementStates.Default, head: "head" };
+    if (
+      queue.getHead() === MAX_QUEUE_LENGTH &&
+      queue.getTail() === MAX_QUEUE_LENGTH &&
+      queue.isEmpty()
+    ) {
+      arr[queue.getHead() - 1] = {
+        value: "",
+        color: ElementStates.Default,
+        head: "head",
+      };
       setArr([...arr]);
     }
 
@@ -93,35 +114,52 @@ export const QueuePage: React.FC = () => {
           onChange={onChange}
         />
         <Button
+          data-testid="addbutton"
           text="Добавить"
           onClick={handleAddNumber}
           disabled={inputValue === "" || queue.isFull() || removedFromQueue}
           isLoader={addedToQueue}
         />
         <Button
+          data-testid="deletebutton"
           text="Удалить"
           onClick={handleDeleteNumber}
           disabled={!arr.length || queue.isEmpty() || addedToQueue}
           isLoader={removedFromQueue}
         />
         <Button
+          data-testid="clearbutton"
           text="Очистить"
           onClick={handleClearQueue}
-          disabled={!arr.length || queue.isEmpty() || addedToQueue || removedFromQueue}
+          disabled={
+            !arr.length || queue.isEmpty() || addedToQueue || removedFromQueue
+          }
           isLoader={clearedQueue}
         />
       </div>
-      <ul className={styles.circles} >
-          {arr && arr.slice(0, MAX_QUEUE_LENGTH).map((item, index) =>
+      <ul className={styles.circles} data-testid="circles">
+        {arr &&
+          arr.slice(0, MAX_QUEUE_LENGTH).map((item, index) => (
             <li key={index}>
               <Circle
+                data-testid="circle"
                 letter={item.value}
                 index={index}
                 state={item.color}
-                head={(index === queue.getHead() && !queue.isEmpty()) || item.head ? 'head' : ''}
-                tail={(index === queue.getTail() - 1 && !queue.isEmpty()) ? 'tail' : ''} />
-            </li>)}
-        </ul>
+                head={
+                  (index === queue.getHead() && !queue.isEmpty()) || item.head
+                    ? "head"
+                    : ""
+                }
+                tail={
+                  index === queue.getTail() - 1 && !queue.isEmpty()
+                    ? "tail"
+                    : ""
+                }
+              />
+            </li>
+          ))}
+      </ul>
     </SolutionLayout>
   );
 };

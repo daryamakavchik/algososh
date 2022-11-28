@@ -20,10 +20,10 @@ export class Queue<T> implements IQueue<T> {
     this.tail++;
     this.length++;
 
-   if(this.tail === this.size + 1){
-    this.tail = this.head;
-    this.container[this.head % this.size] = item;
-   }
+    if (this.tail === this.size + 1) {
+      this.tail = this.head;
+      this.container[this.head % this.size] = item;
+    }
   };
 
   dequeue = () => {

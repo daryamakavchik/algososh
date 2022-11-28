@@ -76,7 +76,7 @@ export class LinkedList<T> implements ILinkedList<T> {
       currHead.next !== null &&
       currHead.next.next != null
     )
-    currHead = currHead.next;
+      currHead = currHead.next;
     currHead.next = null;
     this.size--;
     return this.head;
@@ -92,10 +92,10 @@ export class LinkedList<T> implements ILinkedList<T> {
       while (current && current.next !== null) {
         current = current.next;
       }
-      if (current && current.next === null) { 
+      if (current && current.next === null) {
         current.next = new LinkedListNode(element);
         this.tail = current.next;
-      };
+      }
     }
     this.size++;
   }

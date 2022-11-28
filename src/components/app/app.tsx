@@ -10,7 +10,7 @@ import { StackPage } from "../stack-page/stack-page";
 
 import "./app.css";
 
-function App() {
+export function App() {
   return (
     <div className="app">
       <BrowserRouter>
