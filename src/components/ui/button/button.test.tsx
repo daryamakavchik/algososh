@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./button";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { Direction } from "../../../types/direction";
 import * as renderer from "react-test-renderer";
 
 describe("Кнопка рендерится без ошибок", () => {
@@ -23,6 +24,29 @@ describe("Кнопка рендерится без ошибок", () => {
     const tree = renderer.create(<Button isLoader={true} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it("Кнопка сортировки по возрастанию", () => {
+    const tree = renderer.create(<Button text="По возрастанию"
+    sorting={Direction.Ascending} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("Кнопка сортировки по убыванию", () => {
+    const tree = renderer.create(<Button text="По возрастанию"
+    sorting={Direction.Descending} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("Кнопка меньшей ширины", () => {
+    const tree = renderer.create(<Button linkedList="small" />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("Кнопка большей ширины", () => {
+    const tree = renderer.create(<Button linkedList="big" />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it("Кнопка работает при нажатии", () => {
     const callBack = jest.fn();
     render(<Button onClick={callBack} />);
