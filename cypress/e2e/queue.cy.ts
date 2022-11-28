@@ -16,19 +16,25 @@ describe("Страница Очередь отображается коррек�
   const thirdElement = 3;
 
   it("Элементы верно добавляются в очередь", function () {
-    cy.get("[data-testid=circle]").each(($list: keyof HTMLElementTagNameMap) => {
-      cy.get($list).should("have.css", "border-color", COLOR_DEFAULT);
-    });
+    cy.get("[data-testid=circle]").each(
+      ($list: keyof HTMLElementTagNameMap) => {
+        cy.get($list).should("have.css", "border-color", COLOR_DEFAULT);
+      }
+    );
 
     cy.get("input").should("be.empty");
     cy.get("input").type(`${firstElement}`);
     cy.get("[data-testid=addbutton]").click();
 
-    cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_MODIFIED);
-      cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
-    });
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+          cy.wait(DELAY_SHORT);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(0)).to.contain(firstElement);
@@ -50,12 +56,17 @@ describe("Страница Очередь отображается коррек�
     cy.get("input").type(`${secondElement}`);
     cy.get("[data-testid=addbutton]").click();
 
-    cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_MODIFIED);
-      cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
-    });
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+          cy.wait(DELAY_SHORT);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(0)).to.contain(firstElement);
@@ -80,13 +91,19 @@ describe("Страница Очередь отображается коррек�
     cy.get("input").type(`${thirdElement}`);
     cy.get("[data-testid=addbutton]").click();
 
-    cy.get("[data-testid=circle]").within(($letters) => {
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_MODIFIED);
-      cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
-    });
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+          cy.wait(DELAY_SHORT);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(0)).to.contain(firstElement);
@@ -109,150 +126,129 @@ describe("Страница Очередь отображается коррек�
     cy.get("[data-testid=index]").each(($el, index) => {
       expect($el).to.contain(index);
     });
+  });
 
-    it("Элементы верно удаляются из очереди", function () {
-      cy.get("[data-testid=deletebutton]").click();
+  it("Элементы верно удаляются из очереди", function () {
+    cy.get("[data-testid=deletebutton]").click();
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        cy.get($letters.eq(0)).should(
-          "have.css",
-          "border-color",
-          COLOR_MODIFIED
-        );
-        cy.get($letters.eq(2)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+        } else if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
         cy.wait(DELAY_SHORT);
-        cy.get($letters.eq(1)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-        cy.get($letters.eq(2)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-      });
+        if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        expect($letters.eq(0)).to.contain("");
-        expect($letters.eq(1)).to.contain(secondElement);
-        expect($letters.eq(2)).to.contain(thirdElement);
-      });
+    cy.get("[data-testid=circle]").within(($letters) => {
+      expect($letters.eq(0)).to.contain("");
+      expect($letters.eq(1)).to.contain(secondElement);
+      expect($letters.eq(2)).to.contain(thirdElement);
+    });
 
-      cy.get("[data-testid=head]").within(($head) => {
-        expect($head.eq(0)).to.contain("");
-        expect($head.eq(1)).to.contain("head");
-        expect($head.eq(2)).to.contain("");
-      });
+    cy.get("[data-testid=head]").within(($head) => {
+      expect($head.eq(0)).to.contain("");
+      expect($head.eq(1)).to.contain("head");
+      expect($head.eq(2)).to.contain("");
+    });
 
-      cy.get("[data-testid=tail]").within(($tail) => {
-        expect($tail.eq(0)).to.contain("");
-        expect($tail.eq(1)).to.contain("");
-        expect($tail.eq(2)).to.contain("tail");
-      });
+    cy.get("[data-testid=tail]").within(($tail) => {
+      expect($tail.eq(0)).to.contain("");
+      expect($tail.eq(1)).to.contain("");
+      expect($tail.eq(2)).to.contain("tail");
+    });
 
-      cy.get("[data-testid=index]").each(($el, index) => {
-        expect($el).to.contain(index);
-      });
+    cy.get("[data-testid=index]").each(($el, index) => {
+      expect($el).to.contain(index);
+    });
 
-      cy.get("[data-testid=deletebutton]").click();
+    cy.get("[data-testid=deletebutton]").click();
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        cy.get($letters.eq(0)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-        cy.get($letters.eq(1)).should(
-          "have.css",
-          "border-color",
-          COLOR_MODIFIED
-        );
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
         cy.wait(DELAY_SHORT);
-        cy.get($letters.eq(2)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-      });
+        if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        expect($letters.eq(0)).to.contain("");
-        expect($letters.eq(1)).to.contain("");
-        expect($letters.eq(2)).to.contain(thirdElement);
-      });
+    cy.get("[data-testid=circle]").within(($letters) => {
+      expect($letters.eq(0)).to.contain("");
+      expect($letters.eq(1)).to.contain("");
+      expect($letters.eq(2)).to.contain(thirdElement);
+    });
 
-      cy.get("[data-testid=head]").within(($head) => {
-        expect($head.eq(0)).to.contain("");
-        expect($head.eq(1)).to.contain("");
-        expect($head.eq(2)).to.contain("head");
-      });
+    cy.get("[data-testid=head]").within(($head) => {
+      expect($head.eq(0)).to.contain("");
+      expect($head.eq(1)).to.contain("");
+      expect($head.eq(2)).to.contain("head");
+    });
 
-      cy.get("[data-testid=tail]").within(($tail) => {
-        expect($tail.eq(0)).to.contain("");
-        expect($tail.eq(1)).to.contain("");
-        expect($tail.eq(2)).to.contain("tail");
-      });
+    cy.get("[data-testid=tail]").within(($tail) => {
+      expect($tail.eq(0)).to.contain("");
+      expect($tail.eq(1)).to.contain("");
+      expect($tail.eq(2)).to.contain("tail");
+    });
 
-      cy.get("[data-testid=index]").each(($el, index) => {
-        expect($el).to.contain(index);
-      });
+    cy.get("[data-testid=index]").each(($el, index) => {
+      expect($el).to.contain(index);
+    });
 
-      cy.get("[data-testid=deletebutton]").click();
+    cy.get("[data-testid=deletebutton]").click();
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        cy.get($letters.eq(0)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-        cy.get($letters.eq(1)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-        cy.get($letters.eq(2)).should(
-          "have.css",
-          "border-color",
-          COLOR_MODIFIED
-        );
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
         cy.wait(DELAY_SHORT);
-        cy.get($letters.eq(2)).should(
-          "have.css",
-          "border-color",
-          COLOR_DEFAULT
-        );
-      });
+        if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
-      cy.get("[data-testid=circle]").within(($letters) => {
-        expect($letters.eq(0)).to.contain("");
-        expect($letters.eq(1)).to.contain("");
-        expect($letters.eq(2)).to.contain("");
-      });
+    cy.get("[data-testid=circle]").within(($letters) => {
+      expect($letters.eq(0)).to.contain("");
+      expect($letters.eq(1)).to.contain("");
+      expect($letters.eq(2)).to.contain("");
+    });
 
-      cy.get("[data-testid=head]").within(($head) => {
-        expect($head.eq(0)).to.contain("");
-        expect($head.eq(1)).to.contain("");
-        expect($head.eq(2)).to.contain("");
-      });
+    cy.get("[data-testid=head]").within(($head) => {
+      expect($head.eq(0)).to.contain("");
+      expect($head.eq(1)).to.contain("");
+      expect($head.eq(2)).to.contain("");
+    });
 
-      cy.get("[data-testid=tail]").within(($tail) => {
-        expect($tail.eq(0)).to.contain("");
-        expect($tail.eq(1)).to.contain("");
-        expect($tail.eq(2)).to.contain("");
-      });
+    cy.get("[data-testid=tail]").within(($tail) => {
+      expect($tail.eq(0)).to.contain("");
+      expect($tail.eq(1)).to.contain("");
+      expect($tail.eq(2)).to.contain("");
+    });
 
-      cy.get("[data-testid=index]").each(($el, index) => {
-        expect($el).to.contain(index);
-      });
+    cy.get("[data-testid=index]").each(($el, index) => {
+      expect($el).to.contain(index);
+    });
 
-      cy.get("[data-testid=circle]").each(($list) => {
-        expect($list).to.contain("");
-      });
+    cy.get("[data-testid=circle]").each(($list) => {
+      expect($list).to.contain("");
     });
   });
 
