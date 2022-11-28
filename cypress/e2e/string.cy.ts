@@ -45,7 +45,7 @@ describe("Строка отображается корректно", function ()
     cy.get("button[type='submit']").click();
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index, $list) => {
-      //cy.get($list).should("have.length", stringLength);
+      expect($list).to.have.length(stringLength);
       cy.get($el).contains(initialString[index]);
       cy.get($el).should("have.css", "border-color", initialColors[index]);
     });
@@ -59,7 +59,7 @@ describe("Строка отображается корректно", function ()
     cy.wait(DELAY_LONG);
 
     cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index, $list) => {
-      //cy.get($list).should("have.length", stringLength);
+      expect($list).to.have.length(stringLength);
       cy.get($el).contains(finalString[index]);
       cy.get($el).should("have.css", "border-color", finalColors[index]);
     });
