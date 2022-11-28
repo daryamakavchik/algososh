@@ -1,4 +1,4 @@
-.inputcontainer{
+.inputcontainer {
     display: flex;
     flex-direction: row;
     margin: 0 auto;
@@ -6,12 +6,12 @@
     gap: 12px;
 }
 
-.input{
+.input {
     max-width: 377px;
     width: 100%;
 }
 
-.circlecontainer{
+.circlecontainer {
     display: flex;
     padding: 0;
     margin: 48px auto 0 auto;

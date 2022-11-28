@@ -10,7 +10,11 @@ import { swap } from "./utils";
 import { DELAY_LONG } from "../../utils/constants";
 import styles from "./string.module.css";
 
-export const reverse = async (arr: TArray[], setInputArr:Dispatch<SetStateAction<TArray[]>>, setLoader:Dispatch<SetStateAction<boolean>>,) => {
+export const reverse = async (
+  arr: TArray[],
+  setInputArr: Dispatch<SetStateAction<TArray[]>>,
+  setLoader: Dispatch<SetStateAction<boolean>>
+) => {
   setLoader(true);
   const mid = Math.ceil(arr.length / 2);
 
@@ -44,7 +48,9 @@ export const StringComponent: React.FC = () => {
   };
 
   const handleReverse = () => {
-    const newArr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
+    const newArr = inputValue
+      .split("")
+      .map((value) => ({ value, color: ElementStates.Default }));
     reverse(newArr, setInputArr, setLoader);
   };
 
@@ -60,7 +66,7 @@ export const StringComponent: React.FC = () => {
           />
           <div className={styles.button}>
             <Button
-              type='submit'
+              type="submit"
               text="Развернуть"
               isLoader={loader}
               disabled={inputValue === "" ? true : false}
@@ -72,7 +78,11 @@ export const StringComponent: React.FC = () => {
           {inputArr &&
             inputArr.map((item, index) => (
               <li key={index}>
-                <Circle letter={item.value} state={item.color} extraClass='circle' />
+                <Circle
+                  letter={item.value}
+                  state={item.color}
+                  extraClass="circle"
+                />
               </li>
             ))}
         </ul>
