@@ -44,22 +44,22 @@ describe("Строка отображается корректно", function ()
     cy.get("button").should("not.be.disabled");
     cy.get("button[type='submit']").click();
 
-    cy.get("[data-testid=circle]").each(($el, index, $list) => {
-      cy.get($list).should("have.length", stringLength);
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index, $list) => {
+      //cy.get($list).should("have.length", stringLength);
       cy.get($el).contains(initialString[index]);
       cy.get($el).should("have.css", "border-color", initialColors[index]);
     });
 
     cy.wait(DELAY_LONG);
 
-    cy.get("[data-testid=circle]").each(($el, index, $list) => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index, $list) => {
       cy.get($el).should("have.css", "border-color", changingColors[index]);
     });
 
     cy.wait(DELAY_LONG);
 
-    cy.get("[data-testid=circle]").each(($el, index, $list) => {
-      cy.get($list).should("have.length", stringLength);
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index, $list) => {
+      //cy.get($list).should("have.length", stringLength);
       cy.get($el).contains(finalString[index]);
       cy.get($el).should("have.css", "border-color", finalColors[index]);
     });

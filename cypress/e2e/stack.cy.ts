@@ -1,5 +1,5 @@
 import { DELAY_SHORT } from "../../src/utils/constants";
-import { url, COLOR_DEFAULT, COLOR_MODIFIED } from './utils';
+import { url, COLOR_DEFAULT, COLOR_MODIFIED } from "./utils";
 
 describe("Страница Стек отображается корректно", function () {
   before(function () {
@@ -22,9 +22,12 @@ describe("Страница Стек отображается корректно"
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters).to.have.length(1);
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_MODIFIED);
+    });
+
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap) => {
+      cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
       cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
+      cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
     });
 
     cy.get("[data-testid=head]").within(($head) => {
@@ -42,11 +45,19 @@ describe("Страница Стек отображается корректно"
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters).to.have.length(2);
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_MODIFIED);
-      cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+          cy.wait(DELAY_SHORT);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=head]").within(($head) => {
       expect($head.eq(0)).to.contain("");
@@ -64,13 +75,22 @@ describe("Страница Стек отображается корректно"
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters).to.have.length(3);
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
       expect($letters.eq(1)).to.contain(secondElement);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_MODIFIED);
-      cy.wait(DELAY_SHORT);
-      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_DEFAULT);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+          cy.wait(DELAY_SHORT);
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=head]").within(($head) => {
       expect($head.eq(0)).to.contain("");
@@ -88,8 +108,15 @@ describe("Страница Стек отображается корректно"
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(2)).to.contain(thirdElement);
-      cy.get($letters.eq(2)).should("have.css", "border-color", COLOR_MODIFIED);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 2) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+        }
+      }
+    );
 
     cy.wait(DELAY_SHORT);
 
@@ -101,10 +128,18 @@ describe("Страница Стек отображается корректно"
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters).to.have.length(2);
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
       expect($letters.eq(1)).to.contain(secondElement);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_DEFAULT);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        } else if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=head]").within(($head) => {
       expect($head.eq(0)).to.contain("");
@@ -119,8 +154,15 @@ describe("Страница Стек отображается корректно"
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(1)).to.contain(secondElement);
-      cy.get($letters.eq(1)).should("have.css", "border-color", COLOR_MODIFIED);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 1) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+        }
+      }
+    );
 
     cy.wait(DELAY_SHORT);
 
@@ -132,8 +174,15 @@ describe("Страница Стек отображается корректно"
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters).to.have.length(1);
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_DEFAULT);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_DEFAULT);
+        }
+      }
+    );
 
     cy.get("[data-testid=head]").within(($head) => {
       expect($head.eq(0)).to.contain("top");
@@ -147,8 +196,15 @@ describe("Страница Стек отображается корректно"
 
     cy.get("[data-testid=circle]").within(($letters) => {
       expect($letters.eq(0)).to.contain(firstElement);
-      cy.get($letters.eq(0)).should("have.css", "border-color", COLOR_MODIFIED);
     });
+
+    cy.get("[data-testid=circle]").each(
+      ($el: keyof HTMLElementTagNameMap, index) => {
+        if ($el && index === 0) {
+          cy.get($el).should("have.css", "border-color", COLOR_MODIFIED);
+        }
+      }
+    );
 
     cy.wait(DELAY_SHORT);
     cy.get("[data-testid=circles]").should("be.empty");
