@@ -20,46 +20,58 @@ it("Числа Фибоначчи генерируются корректно", 
     cy.get("button").should("not.be.disabled");
     cy.get("button[type='submit']").click();
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+    cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+    cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+  cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+  cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+  cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
 
-    cy.get("[data-testid=circle]").each(($el, index) => {
+  cy.wrap(finalArr).each(() => {
+    cy.get("[data-testid=circle]").each(($el: keyof HTMLElementTagNameMap, index) => {
       cy.get($el).contains(finalArr[index]);
       cy.get($el).should("have.css", "border-color", color);
     });
 
     cy.wait(DELAY_SHORT);
+  });
   });
 });
