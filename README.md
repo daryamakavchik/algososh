@@ -1,4 +1,4 @@
-# MBEI 'Algososh' named after Fibonacci
+# MBEI ALGOSOSH named after Fibonacci
 
 #### [GitHub Pages](https://daryamakavchik.github.io/algososh/)
 #### [Figma](https://www.figma.com/file/RIkypcTQN5d37g7RRTFid0/Algososh_external_link?node-id=154%3A4331)
