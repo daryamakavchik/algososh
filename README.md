@@ -12,7 +12,7 @@
 
 To reverse a string of characters the other way round, a user should enter some text in the input field and press 'Reverse'.
 
-#### 2. Generate a Fibonacci sequence (FIBONACCI SEQUENCR)
+#### 2. Generate a Fibonacci sequence (FIBONACCI SEQUENCE)
 
 <img width="925" alt="fib" src="https://user-images.githubusercontent.com/90967822/200742101-5342008a-ff70-4e20-9b4e-dbc4dcbeeaba.png">
 
