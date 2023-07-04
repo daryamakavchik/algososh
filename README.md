@@ -28,7 +28,7 @@ Pressing on «Descending» or «Ascending» starts the sorting of the array depe
 
 <img width="720" alt="stack" src="https://user-images.githubusercontent.com/90967822/200742134-5ee3ba0d-7078-4516-9fd9-6a25a4d6001a.png">
 
-Entering some value into the input and pressing 'Add' creates a first stack element, which should be visible on the page. Pressing 'Delete' removes the first(top) element from the stack. If the stack only has one element, pressing 'Delete' will remove it and leave an empty stack. By clicking 'Clear' the user deletes all stack elements at the same time.
+Entering some value into the input and pressing 'Add' creates a first stack element, which should be visible on the page. Pressing 'Delete' removes the top element from the stack. If the stack only has one element, pressing 'Delete' will remove it and leave an empty stack. By clicking 'Clear' the user deletes all stack elements at the same time.
 
 #### 5. Add and remove elments from queue (QUEUE)
 
