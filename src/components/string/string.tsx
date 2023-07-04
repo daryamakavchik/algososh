@@ -55,7 +55,7 @@ export const StringComponent: React.FC = () => {
   };
 
   return (
-    <SolutionLayout title="Строка">
+    <SolutionLayout title="String">
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
@@ -67,7 +67,7 @@ export const StringComponent: React.FC = () => {
           <div className={styles.button}>
             <Button
               type="submit"
-              text="Развернуть"
+              text="Reverse"
               isLoader={loader}
               disabled={inputValue === "" ? true : false}
               onClick={handleReverse}

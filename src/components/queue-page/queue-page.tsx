@@ -104,7 +104,7 @@ export const QueuePage: React.FC = () => {
   };
 
   return (
-    <SolutionLayout title="Очередь">
+    <SolutionLayout title="Queue">
       <div className={styles.container}>
         <Input
           maxLength={MAX_QUEUE_INPUT_LENGTH}
@@ -115,21 +115,21 @@ export const QueuePage: React.FC = () => {
         />
         <Button
           data-testid="addbutton"
-          text="Добавить"
+          text="Add"
           onClick={handleAddNumber}
           disabled={inputValue === "" || queue.isFull() || removedFromQueue}
           isLoader={addedToQueue}
         />
         <Button
           data-testid="deletebutton"
-          text="Удалить"
+          text="Delete"
           onClick={handleDeleteNumber}
           disabled={!arr.length || queue.isEmpty() || addedToQueue}
           isLoader={removedFromQueue}
         />
         <Button
           data-testid="clearbutton"
-          text="Очистить"
+          text="Clear"
           onClick={handleClearQueue}
           disabled={
             !arr.length || queue.isEmpty() || addedToQueue || removedFromQueue

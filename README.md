@@ -6,11 +6,11 @@
 ## Description
 "Algososh" is a portfolio project created as an assignment for [Yandex.Practicum](https://practicum.yandex.com/web/ "Web Development Program"). It is an algorithm visualizer where a user can:
 
-#### 1. Turn a string (STRING)
+#### 1. Reverse a string (STRING)
 
 <img width="599" alt="string" src="https://user-images.githubusercontent.com/90967822/200742068-5f0d3e7c-f20d-4ad1-a10b-176cfd445b44.png">
 
-To turn a string of characters the other way round, a user should enter some text in the input field and press 'Turn'.
+To reverse a string of characters the other way round, a user should enter some text in the input field and press 'Reverse'.
 
 #### 2. Generate a Fibonacci sequence (FIBONACCI SEQUENCR)
 
@@ -36,7 +36,7 @@ Entering some value into the input and pressing 'Add' creates a first stack elem
 
 Entering some value into the input and pressing 'Add' creates an element with 0 index value. For a split second the element's color turns purple. Pressing 'Delete' removes the last element from the queue. By pressing 'Clear' the user deletes all queue elements at the same tinme.
 
-#### 6. Add and remove elements from chained order (CHAINED ORDER)
+#### 6. Add and remove elements from linked list (LINKED LIST)
 
 <img width="787" alt="linked" src="https://user-images.githubusercontent.com/90967822/200742198-e607362e-b917-4d3e-a974-05016797938a.png">
 
@@ -66,4 +66,5 @@ npm run start
 ```
 
 ## To Do
+- [ ] translate main page elements
 - [ ] make the website responsive

@@ -148,35 +148,35 @@ export const SortingPage: React.FC = () => {
   const handleClick = (direction: Direction) => {
     setDirection(direction);
 
-    if (sortType === "выбор" && direction === Direction.Ascending) {
+    if (sortType === "selection" && direction === Direction.Ascending) {
       sortAscendingSelect(arr, setArr, setLoader);
     }
-    if (sortType === "выбор" && direction === Direction.Descending) {
+    if (sortType === "selection" && direction === Direction.Descending) {
       sortDescendingSelect(arr, setArr, setLoader);
     }
-    if (sortType === "пузырёк" && direction === Direction.Ascending) {
+    if (sortType === "bubble" && direction === Direction.Ascending) {
       sortAscendingBubble(arr, setArr, setLoader);
     }
-    if (sortType === "пузырёк" && direction === Direction.Descending) {
+    if (sortType === "bubble" && direction === Direction.Descending) {
       sortDescendingBubble(arr, setArr, setLoader);
     }
   };
 
   return (
-    <SolutionLayout title="Сортировка массива">
+    <SolutionLayout title="Array sorting">
       <div className={styles.container}>
         <div className={styles.radios}>
           <RadioInput
-            label="Выбор"
-            value="выбор"
-            checked={sortType === "выбор" ? true : false}
+            label="Selectin"
+            value="selection"
+            checked={sortType === "selection" ? true : false}
             onChange={changeSortType}
             disabled={loader}
           />
           <RadioInput
-            label="Пузырёк"
-            value="пузырёк"
-            checked={sortType === "пузырёк" ? true : false}
+            label="Bubble"
+            value="bubble"
+            checked={sortType === "bubble" ? true : false}
             onChange={changeSortType}
             disabled={loader}
           />
@@ -184,7 +184,7 @@ export const SortingPage: React.FC = () => {
         <div className={styles.buttons}>
           <div className={styles.button}>
             <Button
-              text="По возрастанию"
+              text="Ascending"
               sorting={Direction.Ascending}
               onClick={() => handleClick(Direction.Ascending)}
               disabled={setDisabled(Direction.Ascending)}
@@ -193,7 +193,7 @@ export const SortingPage: React.FC = () => {
           </div>
           <div className={styles.button}>
             <Button
-              text="По убыванию"
+              text="Descending"
               sorting={Direction.Descending}
               onClick={() => handleClick(Direction.Descending)}
               disabled={setDisabled(Direction.Descending)}
@@ -202,7 +202,7 @@ export const SortingPage: React.FC = () => {
           </div>
         </div>
         <div className={styles.arrbutton}>
-          <Button text="Новый массив" onClick={addNewArr} disabled={loader} />
+          <Button text="New array" onClick={addNewArr} disabled={loader} />
         </div>
       </div>
       <ul className={styles.columns}>

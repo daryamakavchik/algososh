@@ -298,12 +298,12 @@ export const ListPage: React.FC = () => {
   };
 
   return (
-    <SolutionLayout title="Связный список">
+    <SolutionLayout title="Linked list">
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
             data-testid="input"
-            placeholder="Введите значение"
+            placeholder="Enter value"
             maxLength={MAX_LIST_INPUT_LENGTH}
             isLimitText={true}
             type="text"
@@ -314,7 +314,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="addtoheadbutton"
           extraClass={styles.button}
-          text="Добавить в head"
+          text="Add to head"
           onClick={handleAddToHead}
           disabled={buttons || disableAddHeadButtonCondition}
           isLoader={addedToHead}
@@ -322,7 +322,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="addtotailbutton"
           extraClass={styles.button}
-          text="Добавить в tail"
+          text="Add to tail"
           onClick={handleAddToTail}
           disabled={buttons || disableAddTailButtonCondition}
           isLoader={addedToTail}
@@ -330,7 +330,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="deletefromheadbutton"
           extraClass={styles.button}
-          text="Удалить из head"
+          text="Delete from head"
           onClick={handleRemoveFromHead}
           disabled={arr.length <= 1 || disableRemoveHeadButtonCondition}
           isLoader={removedFromHead}
@@ -338,7 +338,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="deletefromtailbutton"
           extraClass={styles.button}
-          text="Удалить из tail"
+          text="Delete from tail"
           onClick={handleRemoveFromTail}
           disabled={arr.length <= 1 || disableRemoveTailButtonCondition}
           isLoader={removedFromTail}
@@ -348,7 +348,7 @@ export const ListPage: React.FC = () => {
         <div className={styles.inputcontainer}>
           <Input
             data-testid="indexinput"
-            placeholder="Введите индекс"
+            placeholder="Enter index"
             type="text"
             value={indexValue}
             onChange={onIndexChange}
@@ -357,7 +357,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="addbyindexbutton"
           extraClass={styles.indexbutton}
-          text="Добавить по индексу"
+          text="Add by index"
           onClick={handleAddByIndex}
           disabled={indexAddButton || disableAddIndexButtonCondition}
           isLoader={addedByIndex}
@@ -365,7 +365,7 @@ export const ListPage: React.FC = () => {
         <Button
           data-testid="deletebyindexbutton"
           extraClass={styles.indexbutton}
-          text="Удалить по индексу"
+          text="Delete by index"
           onClick={handleRemoveByIndex}
           disabled={indexDeleteButton || disableRemoveIndexButtonCondition}
           isLoader={removedByIndex}

@@ -52,7 +52,7 @@ export const StackPage: React.FC = () => {
   };
 
   return (
-    <SolutionLayout title="Стек">
+    <SolutionLayout title="Stack">
       <div className={styles.container}>
         <Input
           maxLength={MAX_STACK_INPUT_LENGTH}
@@ -63,19 +63,19 @@ export const StackPage: React.FC = () => {
         />
         <Button
           data-testid="addbutton"
-          text="Добавить"
+          text="Add"
           onClick={handleAddNumber}
           disabled={inputValue === ""}
         />
         <Button
           data-testid="deletebutton"
-          text="Удалить"
+          text="Delete"
           onClick={handleDeleteNumber}
           disabled={!arr.length}
         />
         <Button
           data-testid="clearbutton"
-          text="Очистить"
+          text="Clear"
           onClick={handleClearStack}
           disabled={!arr.length}
         />

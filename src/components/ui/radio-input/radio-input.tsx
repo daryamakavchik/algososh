@@ -8,7 +8,7 @@ interface RadioProps extends React.HTMLProps<HTMLInputElement> {
 }
 
 export const RadioInput: React.FC<RadioProps> = ({
-  label = "Введите текст",
+  label = "Enter text",
   extraClass = "",
   ...rest
 }) => {

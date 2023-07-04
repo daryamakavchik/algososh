@@ -32,7 +32,7 @@ export const FibonacciPage: React.FC = () => {
   };
 
   return (
-    <SolutionLayout title="Последовательность Фибоначчи">
+    <SolutionLayout title="Fibonacci Sequence">
       <div className={styles.container}>
         <div className={styles.inputcontainer}>
           <Input
@@ -46,7 +46,7 @@ export const FibonacciPage: React.FC = () => {
           <div className={styles.button}>
             <Button
               type="submit"
-              text="Рассчитать"
+              text="Generate"
               isLoader={loader}
               disabled={
                 inputValue === "" || +inputValue > 19 || +inputValue < 0
