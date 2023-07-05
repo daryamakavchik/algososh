@@ -15,7 +15,7 @@ export function App() {
     <div className="app">
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/algososh" exact>
             <MainPage />
           </Route>
           <Route path="/recursion">
