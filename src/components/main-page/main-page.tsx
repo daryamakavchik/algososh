@@ -47,9 +47,6 @@ export const MainPage: React.FC<MainPageProps> = ({ extraClass = "" }) => {
         >
           Inspired by schools, where algorithms weren't taught
         </p>
-        <div className={styles.dot_box}>
-          <p className={styles.dot} />
-        </div>
       </Marquee>
       <p
         className={`text text_type_column text_color_input mt-14 ${styles.copyright}`}
