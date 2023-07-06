@@ -13,7 +13,7 @@ import "./app.css";
 export function App() {
   return (
     <div className="app">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route path="/" exact>
             <MainPage />
