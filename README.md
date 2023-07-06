@@ -3,6 +3,8 @@
 #### [GitHub Pages](https://daryamakavchik.github.io/algososh/)
 #### [Figma](https://www.figma.com/file/RIkypcTQN5d37g7RRTFid0/Algososh_external_link?node-id=154%3A4331)
 
+<img width="1728" alt="MAIN" src="https://github.com/daryamakavchik/algososh/assets/90967822/7faa37c2-03c0-4be6-a916-accdb0e5f852">
+
 ## Description
 "Algososh" is a portfolio project created as an assignment for [Yandex.Practicum](https://practicum.yandex.com/web/ "Web Development Program"). It is an algorithm visualizer where a user can:
 
