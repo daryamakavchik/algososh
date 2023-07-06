@@ -167,7 +167,7 @@ export const SortingPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.radios}>
           <RadioInput
-            label="Selectin"
+            label="Selection"
             value="selection"
             checked={sortType === "selection" ? true : false}
             onChange={changeSortType}
