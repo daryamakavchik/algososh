@@ -68,5 +68,6 @@ npm run start
 ```
 
 ## To Do
+- [ ] fix desktop layout width
 - [ ] translate main page elements
 - [ ] make the website responsive
